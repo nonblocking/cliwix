@@ -4,5 +4,9 @@ target
 .idea
 *.iml
 
+cliwix-cli-client/dependency-reduced-pom.xml
+
+cliwix-webapp/node_modules
+cliwix-webapp/.sass-cache
 cliwix-webapp/src/main/webapp/css
 cliwix-webapp/src/main/webapp/js
