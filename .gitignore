@@ -4,3 +4,5 @@ target
 .idea
 *.iml
 
+cliwix-webapp/src/main/webapp/css
+cliwix-webapp/src/main/webapp/js
