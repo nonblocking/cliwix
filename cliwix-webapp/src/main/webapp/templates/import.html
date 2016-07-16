@@ -1,0 +1,150 @@
+<section class="import">
+
+    <form name="importForm">
+        <div class="row import-settings-panel">
+            <div class="col-sm-4 column1">
+                <div class="form-input">
+                    <div class="radio-with-label">
+                        <input id="modeDirectory" type="radio" name="import.type" value="directory" ng-model="importSettings.mode"/>
+                        <label for="modeDirectory">
+                            {{ 'import.server.directory' | translate }}
+                            <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.server.directory.tooltip' | translate }}"></span>
+                        </label>
+                        <div class="form-input-subitem" ng-show="importSettings.mode == 'directory'">
+                            <input type="text" ng-model="importSettings.directory" ng-required="importSettings.mode == 'directory'" size="45" maxlength="512"/>
+                        </div>
+                    </div>
+                    <div class="form-input">
+                        <input id="modeUpload" type="radio" name="import.type" value="upload" ng-model="importSettings.mode"/>
+                        <label for="modeUpload">
+                            {{ 'import.upload.file' | translate }}
+                            <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.upload.file.tooltip' | translate }}"></span>
+                        </label>
+                        <div class="form-input-subitem" ng-show="importSettings.mode == 'upload'">
+                            <div ngf-select="onFileSelect($files)" class="btn btn-default btn-file" name="file" ng-model="uploadFile" ng-required="importSettings.mode == 'upload'">
+                                {{ 'browse.file' | translate }}
+                            </div>
+                            <span class="file-name" ng-show="importSettings.mode == 'upload'">
+                                {{ uploadFileLabel() | limitTo: 25 }}
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 column2">
+                <div class="form-input form-input-select">
+                    <input id="overrideRootImportPolicy" type="checkbox" ng-model="overrideRootImportPolicy"/>
+                    <label for="overrideRootImportPolicy">
+                        {{ 'import.overrideRootImportPolicy' | translate }}
+                    </label>
+                    <div class="form-input-subitem" ng-show="overrideRootImportPolicy">
+                        <select id="overrideRootImportPolicyType" ng-model="importSettings.overrideRootImportPolicy" ng-required="overrideRootImportPolicy">
+                            <option value=""> </option>
+                            <option value="ENFORCE">ENFORCE</option>
+                            <option value="UPDATE_INSERT">UPDATE_INSERT</option>
+                            <option value="INSERT">INSERT</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-input">
+                    <input id="ignoreNonExistingUsersGroupsOrgs" type="checkbox" ng-model="importSettings.ignoreNonExistingUsersGroupsOrgs"/>
+                    <label for="ignoreNonExistingUsersGroupsOrgs">
+                        {{ 'import.ignoreNonExistingUsersGroupsOrgs' | translate }}
+                    </label>
+                </div>
+                <div class="form-input">
+                    <input id="ignoreNonExistingResourceActions" type="checkbox" ng-model="importSettings.ignoreNonExistingResourceActions"/>
+                    <label for="ignoreNonExistingResourceActions">
+                        {{ 'import.ignoreNonExistingResourceActions' | translate }}
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.ignoreNonExistingResourceActions.tooltip' | translate }}"></span>
+                    </label>
+                </div>
+                <div class="form-input">
+                    <input id="ignoreInvalidDocumentReferences" type="checkbox" ng-model="importSettings.ignoreInvalidDocumentReferences"/>
+                    <label for="ignoreInvalidDocumentReferences">
+                        {{ 'import.ignoreInvalidDocumentReferences' | translate }}
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.ignoreInvalidDocumentReferences.tooltip' | translate }}"></span>
+                    </label>
+                </div>
+                <div class="form-input">
+                    <input id="ignoreDeletionFailures" type="checkbox" ng-model="importSettings.ignoreDeletionFailures"/>
+                    <label for="ignoreDeletionFailures">
+                        {{ 'import.ignoreDeletionFailures' | translate }}
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.ignoreDeletionFailures.tooltip' | translate }}"></span>
+                    </label>
+                </div>
+            </div>
+            <div class="col-sm-4 column3">
+                <div class="form-input">
+                    <input id="atomicTransaction" type="checkbox" ng-model="importSettings.atomicTransaction" ng-change="importSettings.simulationMode = false"/>
+                    <label for="atomicTransaction">{{ 'import.atomicTransaction' | translate }}</label>
+                    <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'import.atomicTransaction.tooltip' | translate }}"></span>
+                    <div class="form-input-subitem" ng-show="importSettings.atomicTransaction">
+                        <input id="simulationMode" type="checkbox" ng-model="importSettings.simulationMode"/>
+                        <label for="simulationMode">{{ 'import.simulationMode' | translate }}</label>
+                    </div>
+                </div>
+                <button class="btn btn-default button-import" ng-click="startImport()" ng-disabled="importForm.$invalid">{{ 'import.start' | translate }}</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="import-list" ng-show="importList.length > 0">
+        <div>
+            <table class="table import-export-list">
+                <tr>
+                    <th>{{ 'timestamp' | translate}}</th>
+                    <th>{{ 'duration' | translate}}</th>
+                    <th>{{ 'user' | translate}}</th>
+                    <th>{{ 'client' | translate}}</th>
+                    <th>{{ 'client.ip' | translate}}</th>
+                    <th>{{ 'state' | translate}}</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="import in importList" ng-class-even="'even'">
+                    <td>{{import.id | date:'dd.MM.yyyy HH:mm:ss'}}</td>
+                    <td>{{import.durationMs | minutesAndSeconds }}</td>
+                    <td>{{import.user}}</td>
+                    <td>{{import.client}}</td>
+                    <td>{{import.clientIP}}</td>
+                    <td ng-class="stateToClass(import.state)">{{import.state | translate}}</td>
+                    <td>
+                        <span ng-show="import.reportExists">
+                            <a href="services/imports/{{import.id}}/report" target="_blank" class="icon-report">{{ 'download.report' | translate }}</a>
+                        </span>
+                        <span ng-show="import.state == 'failed' && !import.reportExists && import.errorMessage != null">
+                            <span class="fa fa-warning" tooltip-placement="top" uib-tooltip="{{import.errorMessage}}"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span class="export-delete" ng-show="import.state == 'success' || import.state == 'failed'">
+                            <a href="" ng-click="deleteImport(import.id)" class="icon-delete">{{ 'delete' | translate }}</a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div class="pagination-wrapper">
+                <pagination total-items="importListTotal" max-size="10"
+                            ng-model="importListCurrentPage" ng-change="pageChanged()"
+                            previous-text="{{ 'page.previous' | translate }}" next-text="{{ 'page.next' | translate }}">
+                </pagination>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/ng-template" id="progressDialog.html">
+        <div id="progress-panel">
+            <h4>{{ 'import.starting' | translate }}</h4>
+            <div class="progress" ng-show="uploadProgress > 0">
+                <div class="progress-bar" ng-style="{ width: uploadProgress + '%' }">
+                </div>
+                <div class="progress-text">
+                    {{ 'import.upload' | translate }}: {{uploadProgress}}%
+                </div>
+            </div>
+        </div>
+    </script>
+
+
+</section>

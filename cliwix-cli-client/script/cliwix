@@ -1,0 +1,32 @@
+#!/bin/sh
+
+#
+# Cliwix CLI Client
+# Start script for *nix.
+# http://www.cliwix.com
+#
+
+SCRIPT_DIR=$(dirname $0)
+
+if [ -z "$JAVACMD" ] ; then
+  if [ -n "$JAVA_HOME"  ] ; then
+    if [ -x "$JAVA_HOME/jre/sh/java" ] ; then
+      JAVACMD="$JAVA_HOME/jre/sh/java"
+    elif [ -x "$JAVA_HOME/jre/bin/java" ] ; then
+      JAVACMD="$JAVA_HOME/jre/bin/java"
+    else
+      JAVACMD="$JAVA_HOME/bin/java"
+    fi
+  else
+    JAVACMD=`which java 2> /dev/null `
+    if [ -z "$JAVACMD" ] ; then
+        JAVACMD=java
+    fi
+  fi
+fi
+
+${JAVACMD} -jar "${SCRIPT_DIR}/cliwix-cli-client.jar" "$@"
+exitcode=$?
+exit $exitcode
+
+

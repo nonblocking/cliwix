@@ -1,0 +1,17 @@
+
+
+Current Limitations
+-------------------
+
+Below an incomplete list of Liferay configuration data currently not supported by Cliwix. All of these limitation might
+ be solved by upcoming releases.
+
+* The global scope is not exported
+* The parent site connection is not exported
+* Images outside the document library are not supported (in the image table)
+* Pages of users and organizations are not imported/exported
+* Custom portlet preferences of users and organizations are not imported/exported
+* Password policies are not imported/exported
+* Custom fields are not imported/exported
+* All documents are imported as "Basic Document"
+* All articles are imported into the root folder (article folders has been introduced in 6.2)

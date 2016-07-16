@@ -1,0 +1,869 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<!--
+  ~ Copyright (c) 2014-2016
+  ~ nonblocking.at gmbh [http://www.nonblocking.at]
+  ~
+  ~ This file is part of Cliwix.
+  ~
+  ~ Cliwix is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<!--
+    Cliwix Schema v1.0
+    (c) 2014, nonblocking.at gmbh
+-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns:xml="http://www.w3.org/XML/1998/namespace"
+           xmlns:cliwix="http://nonblocking.at/cliwix"
+           elementFormDefault="qualified"
+           targetNamespace="http://nonblocking.at/cliwix"
+           version="1.0">
+
+    <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd" />
+
+    <xs:element name="StaticArticle" type="cliwix:staticArticle"/>
+
+    <xs:element name="TemplateDrivenArticle" type="cliwix:templateDrivenArticle"/>
+
+    <xs:element name="AssetTag" type="cliwix:assetTag"/>
+
+    <xs:element name="AssetTags" type="cliwix:assetTags"/>
+
+    <xs:element name="Companies" type="cliwix:companies"/>
+
+    <xs:element name="Company" type="cliwix:company"/>
+
+    <xs:element name="DocumentLibrary" type="cliwix:documentLibrary"/>
+
+    <xs:element name="DocumentLibraryFile" type="cliwix:documentLibraryFile"/>
+
+    <xs:element name="DocumentLibraryFolder" type="cliwix:documentLibraryFolder"/>
+
+    <xs:element name="LiferayConfig" type="cliwix:liferayConfig"/>
+
+    <xs:element name="LocalizedTextContent" type="cliwix:localizedTextContent"/>
+
+    <xs:element name="LocalizedXmlContent" type="cliwix:localizedXmlContent"/>
+
+    <xs:element name="Organization" type="cliwix:organization"/>
+
+    <xs:element name="Organizations" type="cliwix:organizations"/>
+
+    <xs:element name="Page" type="cliwix:page"/>
+
+    <xs:element name="PagePortlet" type="cliwix:portletConfiguration"/>
+
+    <xs:element name="PageSet" type="cliwix:pageSet"/>
+
+    <xs:element name="PageSetting" type="cliwix:pageSetting"/>
+
+    <xs:element name="Permission" type="cliwix:permission"/>
+
+    <xs:element name="Permissions" type="cliwix:permissions"/>
+
+    <xs:element name="PortalPreferences" type="cliwix:portalPreferences"/>
+
+    <xs:element name="PortletConfigurations" type="cliwix:portletConfigurations"/>
+
+    <xs:element name="Preference" type="cliwix:preference"/>
+
+    <xs:element name="Role" type="cliwix:role"/>
+
+    <xs:element name="Roles" type="cliwix:roles"/>
+
+    <xs:element name="Site" type="cliwix:site"/>
+
+    <xs:element name="Sites" type="cliwix:sites"/>
+
+    <xs:element name="User" type="cliwix:user"/>
+
+    <xs:element name="UserGroup" type="cliwix:userGroup"/>
+
+    <xs:element name="UserGroups" type="cliwix:userGroups"/>
+
+    <xs:element name="Users" type="cliwix:users"/>
+
+    <xs:element name="SiteContent" type="cliwix:siteContent"/>
+
+    <xs:element name="WebContent" type="cliwix:webContent"/>
+
+    <xs:simpleType name="localeType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[a-z]{2}_[A-Z]{2}" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="absoluteURLType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="/.*" />
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="relativeURLType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^/].*" />
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="emailAddressType">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string75Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="75" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string100Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="100" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string150Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="150" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string200Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="200" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string255Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="255" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string1024Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="1024" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="string2000Type">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="2000" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="articleIdType">
+        <xs:restriction base="cliwix:string75Type">
+            <xs:pattern value="[A-Z0-9_-]*" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="countryCodeType">
+        <xs:restriction base="xs:string">
+            <xs:minLength value="2" />
+            <xs:maxLength value="2" />
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="role">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Type" type="cliwix:roleType" />
+            <xs:element minOccurs="0" name="Titles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element  maxOccurs="unbounded" minOccurs="0" name="Title" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Descriptions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Description" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string75Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="localizedTextContent">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="locale" type="cliwix:localeType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="documentLibrary">
+        <xs:complexContent>
+            <xs:extension base="cliwix:treeType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+                    <xs:element minOccurs="0" name="Entries">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:choice maxOccurs="unbounded" minOccurs="0">
+                                    <xs:element name="File" type="cliwix:documentLibraryFile"/>
+                                    <xs:element name="Folder" type="cliwix:documentLibraryFolder"/>
+                                </xs:choice>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+                <xs:attribute name="fileDataFolder" type="cliwix:relativeURLType" use="required"/>
+                <xs:attribute name="mergeFromFileSystem" type="xs:boolean"/>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType abstract="true" name="treeType">
+        <xs:sequence/>
+        <xs:attribute name="policy" type="cliwix:importPolicy"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="documentLibraryFile">
+        <xs:sequence>
+            <xs:element name="FileDataName" minOccurs="1" type="cliwix:string255Type"/>
+            <xs:element minOccurs="0" name="Description" type="cliwix:string2000Type"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+            <xs:element minOccurs="0" ref="cliwix:AssetTags"/>
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string255Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="assetTags">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:AssetTag"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType abstract="true" name="listType">
+        <xs:sequence/>
+        <xs:attribute name="policy" type="cliwix:importPolicy"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType abstract="true" name="braceType">
+        <xs:sequence/>
+        <xs:attribute name="policy" type="cliwix:importPolicy"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:simpleType name="assetTag">
+        <xs:restriction base="cliwix:string75Type"/>
+    </xs:simpleType>
+
+    <xs:complexType name="permissions">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Permission"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="permission">
+        <xs:sequence>
+            <xs:element name="Actions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Action" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="role" type="cliwix:string75Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="documentLibraryFolder">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Description" type="cliwix:string2000Type"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+            <xs:element minOccurs="0" name="SubEntries">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:choice maxOccurs="unbounded" minOccurs="0">
+                            <xs:element name="File" type="cliwix:documentLibraryFile"/>
+                            <xs:element name="Folder" type="cliwix:documentLibraryFolder"/>
+                        </xs:choice>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string255Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="pageSet">
+        <xs:complexContent>
+            <xs:extension base="cliwix:treeType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" name="DefaultThemeId" type="cliwix:string75Type"/>
+                    <xs:element minOccurs="0" name="DefaultColorSchemeId" type="cliwix:string75Type"/>
+                    <xs:element minOccurs="0" name="CSS" type="xs:string"/>
+                    <xs:element minOccurs="0" name="Pages">
+                        <xs:complexType>
+                            <xs:sequence>
+                                <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Page"/>
+                            </xs:sequence>
+                        </xs:complexType>
+                    </xs:element>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="page">
+        <xs:sequence>
+            <xs:element name="PageType" type="cliwix:pageType"/>
+            <xs:element minOccurs="0" name="Hidden" type="xs:boolean"/>
+            <xs:element minOccurs="0" name="ThemeId" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="ColorSchemeId" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="CSS" type="xs:string"/>
+            <xs:element minOccurs="0" name="Description" type="cliwix:string2000Type"/>
+            <xs:element minOccurs="0" name="Names">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Name" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Titles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Title" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="PageSettings">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:PageSetting"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+            <xs:element minOccurs="0" ref="cliwix:PortletConfigurations"/>
+            <xs:element minOccurs="0" name="SubPages">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Page"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="url" type="cliwix:absoluteURLType" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="pageSetting">
+        <xs:sequence>
+            <xs:element name="Key" type="xs:string"/>
+            <xs:element name="Value" type="xs:string"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="portletConfigurations">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" name="PortletConfiguration" type="cliwix:portletConfiguration"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="portletConfiguration">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="PortletPreferences">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Preference"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+        </xs:sequence>
+        <xs:attribute name="portletId" type="cliwix:string200Type" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="preference">
+        <xs:sequence>
+            <xs:element name="Name" type="xs:string"/>
+            <xs:choice>
+                <xs:element name="Value" type="xs:string"/>
+                <xs:element name="Values">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element maxOccurs="unbounded" minOccurs="1" name="Value" type="xs:string"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+            </xs:choice>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="user">
+        <xs:sequence>
+            <xs:element name="EmailAddress" type="cliwix:emailAddressType"/>
+            <xs:element minOccurs="0" name="Password" type="cliwix:password"/>
+            <xs:element minOccurs="0" name="JobTitle" type="cliwix:string100Type"/>
+            <xs:element minOccurs="0" name="FirstName" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="MiddleName" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="LastName" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="BirthDate" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="Gender" type="cliwix:gender"/>
+            <xs:element minOccurs="0" name="Locale" type="cliwix:localeType"/>
+            <xs:element minOccurs="0" name="Timezone" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="Greeting" type="cliwix:string255Type"/>
+            <xs:element minOccurs="0" name="Organizations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Organization" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="UserGroups">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="UserGroup" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Roles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Role" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="screenName" type="cliwix:string75Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="password">
+        <xs:simpleContent>
+            <xs:extension base="cliwix:string75Type">
+                <xs:attribute name="encrypted" type="xs:boolean"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="staticArticle">
+        <xs:sequence>
+            <xs:element minOccurs="1" name="DefaultLocale" type="cliwix:localeType"/>
+            <xs:element minOccurs="0" name="Type" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="DisplayDate" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="Summaries">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Summary" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" name="Titles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" maxOccurs="unbounded" name="Title" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Contents">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Content" type="cliwix:localizedXmlContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" ref="cliwix:AssetTags"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+        </xs:sequence>
+        <xs:attribute name="articleId" type="cliwix:articleIdType" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="templateDrivenArticle">
+        <xs:sequence>
+            <xs:element minOccurs="1" name="DefaultLocale" type="cliwix:localeType"/>
+            <xs:element minOccurs="0" name="Type" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="DisplayDate" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="ExpirationDate" type="xs:dateTime"/>
+            <xs:element minOccurs="0" name="Summaries">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Summary" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" name="Titles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" maxOccurs="unbounded" name="Title" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" name="StructureId" type="cliwix:articleIdType"/>
+            <xs:element minOccurs="1" name="TemplateId" type="cliwix:articleIdType"/>
+            <xs:element minOccurs="1" name="DynamicElements" type="xs:string"/>
+            <xs:element minOccurs="0" ref="cliwix:AssetTags"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+        </xs:sequence>
+        <xs:attribute name="articleId" type="cliwix:articleIdType" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="articleStructure">
+        <xs:sequence>
+            <xs:element minOccurs="1" name="Names">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" maxOccurs="unbounded" name="Name" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Descriptions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Description" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" name="DynamicElements" type="xs:string"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+            <xs:element minOccurs="0" name="SubStructures">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Structure" type="cliwix:articleStructure"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="structureId" type="cliwix:articleIdType"  use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="articleTemplate">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="StructureId" type="cliwix:articleIdType"/>
+            <xs:element minOccurs="1" name="Names">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element minOccurs="1" maxOccurs="unbounded" name="Name" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="Descriptions">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" name="Description" type="cliwix:localizedTextContent"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="1" name="Language" type="cliwix:string75Type"/>
+            <xs:element minOccurs="1" name="Script" type="xs:string"/>
+            <xs:element minOccurs="0" ref="cliwix:Permissions"/>
+        </xs:sequence>
+        <xs:attribute name="templateId" type="cliwix:articleIdType"  use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="localizedXmlContent">
+        <xs:simpleContent>
+            <xs:extension base="xs:string">
+                <xs:attribute name="locale" type="cliwix:localeType" use="required"/>
+            </xs:extension>
+        </xs:simpleContent>
+    </xs:complexType>
+
+    <xs:complexType name="companies">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded"  minOccurs="0" ref="cliwix:Company"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="company">
+        <xs:sequence>
+            <xs:element name="VirtualHost" type="cliwix:string75Type"/>
+            <xs:element name="MailDomain" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="HomeURL" type="cliwix:absoluteURLType"/>
+            <xs:element minOccurs="0" name="AccountName" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="Active" type="xs:boolean"/>
+            <xs:element name="DefaultLocale" type="cliwix:localeType"/>
+            <xs:element name="DefaultTimezone" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="DefaultGreeting" type="cliwix:string255Type"/>
+            <xs:element minOccurs="0" ref="cliwix:Roles"/>
+            <xs:element minOccurs="0" ref="cliwix:UserGroups"/>
+            <xs:element minOccurs="0" ref="cliwix:Organizations"/>
+            <xs:element minOccurs="0" ref="cliwix:Users"/>
+            <xs:element minOccurs="0" ref="cliwix:PortalPreferences"/>
+            <xs:element minOccurs="0" ref="cliwix:Sites"/>
+        </xs:sequence>
+        <xs:attribute name="webID" type="cliwix:string75Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="roles">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:Role"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="userGroups">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:UserGroup"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="userGroup">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Description" type="cliwix:string2000Type"/>
+            <xs:element minOccurs="0" name="Roles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Role" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string75Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="organizations">
+        <xs:complexContent>
+            <xs:extension base="cliwix:treeType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Organization"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="organization">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Type" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="CountryCode" type="cliwix:countryCodeType"/>
+            <xs:element minOccurs="0" name="RegionCode" type="cliwix:string75Type"/>
+            <xs:element minOccurs="0" name="Roles">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Role" type="xs:string"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="SubOrganizations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Organization"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string100Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="users">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:User"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="portalPreferences">
+        <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" ref="cliwix:Preference"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:complexType name="sites">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:Site"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="site">
+        <xs:sequence>
+            <xs:element minOccurs="0" name="Description" type="cliwix:string2000Type"/>
+            <xs:element name="FriendlyURL" type="cliwix:absoluteURLType"/>
+            <xs:element name="Active" type="xs:boolean"/>
+            <xs:element name="MembershipType" type="cliwix:siteMembershipType"/>
+            <xs:element minOccurs="0" name="MemberOrganizations">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="Organization" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="MemberUserGroups">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="UserGroup" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="MemberUsers">
+                <xs:complexType>
+                    <xs:sequence>
+                        <xs:element maxOccurs="unbounded" minOccurs="0" name="User" type="cliwix:string75Type"/>
+                    </xs:sequence>
+                </xs:complexType>
+            </xs:element>
+            <xs:element minOccurs="0" name="PublicPages" type="cliwix:pageSet"/>
+            <xs:element minOccurs="0" name="PrivatePages" type="cliwix:pageSet"/>
+            <xs:element minOccurs="0" ref="cliwix:SiteContent" />
+        </xs:sequence>
+        <xs:attribute name="name" type="cliwix:string150Type" use="required"/>
+        <xs:attribute ref="xml:base"/>
+    </xs:complexType>
+
+    <xs:complexType name="articles">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:choice maxOccurs="unbounded" minOccurs="0">
+                        <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:StaticArticle"/>
+                        <xs:element maxOccurs="unbounded" minOccurs="0"  ref="cliwix:TemplateDrivenArticle"/>
+                    </xs:choice>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="articleStructures">
+        <xs:complexContent>
+            <xs:extension base="cliwix:treeType">
+                <xs:sequence>
+                    <xs:element name="Structure" maxOccurs="unbounded" minOccurs="0" type="cliwix:articleStructure"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="articleTemplates">
+        <xs:complexContent>
+            <xs:extension base="cliwix:listType">
+                <xs:sequence>
+                    <xs:element name="Template" maxOccurs="unbounded" minOccurs="0" type="cliwix:articleTemplate"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="siteContent">
+        <xs:complexContent>
+            <xs:extension base="cliwix:braceType">
+                <xs:sequence>
+                    <xs:element minOccurs="0" ref="cliwix:DocumentLibrary"/>
+                    <xs:element minOccurs="0" ref="cliwix:WebContent"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="webContent">
+        <xs:complexContent>
+            <xs:extension base="cliwix:braceType">
+                <xs:sequence>
+                    <xs:element name="Structures" minOccurs="0" maxOccurs="1" type="cliwix:articleStructures" />
+                    <xs:element name="Templates" minOccurs="0" maxOccurs="1" type="cliwix:articleTemplates"/>
+                    <xs:element name="Articles" minOccurs="0" maxOccurs="1" type="cliwix:articles"/>
+                </xs:sequence>
+            </xs:extension>
+        </xs:complexContent>
+    </xs:complexType>
+
+    <xs:complexType name="liferayConfig">
+        <xs:sequence>
+            <xs:element minOccurs="0" ref="cliwix:Companies"/>
+        </xs:sequence>
+        <xs:attribute name="modelVersion" type="xs:string" use="required"/>
+        <xs:attribute name="sourceVersion" type="xs:string" use="optional"/>
+    </xs:complexType>
+
+    <xs:complexType name="collectionComparator">
+        <xs:sequence/>
+    </xs:complexType>
+
+    <xs:simpleType name="importPolicy">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="ENFORCE"/>
+            <xs:enumeration value="UPDATE_INSERT"/>
+            <xs:enumeration value="INSERT"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="pageType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="EMBEDDED"/>
+            <xs:enumeration value="LINK_TO_PAGE"/>
+            <xs:enumeration value="PORTLET"/>
+            <xs:enumeration value="PANEL"/>
+            <xs:enumeration value="URL"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="gender">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="M"/>
+            <xs:enumeration value="F"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="roleType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="REGULAR"/>
+            <xs:enumeration value="SITE"/>
+            <xs:enumeration value="ORGANIZATION"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="siteMembershipType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="PRIVATE"/>
+            <xs:enumeration value="OPEN"/>
+            <xs:enumeration value="RESTRICTED"/>
+            <xs:enumeration value="SYSTEM"/>
+        </xs:restriction>
+    </xs:simpleType>
+</xs:schema>

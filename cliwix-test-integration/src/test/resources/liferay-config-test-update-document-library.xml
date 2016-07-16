@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd"
+        modelVersion="1.1"
+        sourceVersion="6.1.2">
+    <Companies policy="UPDATE_INSERT">
+        <Company webID="CliwixDemo">
+            <Sites>
+                <Site name="Demo">
+                    <SiteContent>
+                        <DocumentLibrary fileDataFolder="media/demoSite" mergeFromFileSystem="false">
+                            <Entries>
+                                <File name="Humpty Dumpty">
+                                    <FileDataName>text1.txt</FileDataName>
+                                </File>
+                            </Entries>
+                        </DocumentLibrary>
+                    </SiteContent>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

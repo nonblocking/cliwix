@@ -1,0 +1,32 @@
+Cliwix User Manual
+==================
+Version {project-version}
+{localdate}
+
+:Author: Jürgen Kofler
+:Date: {localdate}
+:Revision: {project-version}
+:doctype: book
+
+:numbered:
+
+include::introduction.adoc[]
+
+include::installation.adoc[]
+
+include::configuration.adoc[]
+
+include::usage.adoc[]
+
+include::cliwix_xml.adoc[]
+
+include::limitations.adoc[]
+
+include::faq.adoc[]
+
+include::support.adoc[]
+
+
+include::appendix_a_api_doc.adoc[]
+
+include::appendix_b_licence.adoc[]

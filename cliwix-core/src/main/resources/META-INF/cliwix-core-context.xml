@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014-2016
+  ~ nonblocking.at gmbh [http://www.nonblocking.at]
+  ~
+  ~ This file is part of Cliwix.
+  ~
+  ~ Cliwix is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <!-- Utilities -->
+
+    <bean id="resourceAwareCollectionFactory" class="at.nonblocking.cliwix.core.util.ResourceAwareCollectionFactoryImpl" />
+
+    <bean id="resourceAwareXmlSerializer" class="at.nonblocking.cliwix.core.util.ResourceAwareXmlSerializerImpl" autowire="byType"/>
+
+    <bean id="fileDataLoader" class="at.nonblocking.cliwix.core.filedata.FileDataLoaderImpl" autowire="byType"/>
+
+    <bean id="transactionalLocalService" class="at.nonblocking.cliwix.core.transaction.CliwixTransactionalLocalServiceImpl" />
+    <bean id="cliwixTransaction" class="at.nonblocking.cliwix.core.transaction.CliwixTransaction" >
+        <property name="transactionalLocalService" ref="transactionalLocalService" />
+        <property name="transactionInterceptor" ref="liferayTransactionInterceptor" />
+    </bean>
+
+    <bean class="at.nonblocking.cliwix.core.ExecutionContextDependencySetter">
+        <property name="executionContextSecurityHandler" ref="executionContextSecurityHandler" />
+    </bean>
+
+    <bean class="at.nonblocking.cliwix.core.util.AssetEntryUtilImpl" autowire="byType"/>
+    <bean class="at.nonblocking.cliwix.core.util.GroupUtilImpl" autowire="byType"/>
+    <bean class="at.nonblocking.cliwix.core.util.PortletUtilImpl" autowire="byType"/>
+    <bean class="at.nonblocking.cliwix.core.util.CountryAndRegionUtilImpl" autowire="byType"/>
+
+    <bean class="at.nonblocking.cliwix.core.expression.ExpressionResolverImpl" autowire="byType" />
+    <bean class="at.nonblocking.cliwix.core.expression.ExpressionGeneratorImpl" autowire="byType"/>
+
+    <bean id="liferayEntityComparator" class="at.nonblocking.cliwix.core.compare.LiferayEntityComparatorImpl" />
+
+    <!-- Cliwix Services -->
+
+    <bean id="liferayInfo" class="at.nonblocking.cliwix.core.LiferayInfoImpl"/>
+
+    <bean id="liferayAuthenticator" class="at.nonblocking.cliwix.core.LiferayAuthenticatorImpl" autowire="byType" />
+
+    <bean id="liferayExporter" class="at.nonblocking.cliwix.core.LiferayExporterImpl" >
+        <property name="handler" ref="dispatchHandler" />
+        <property name="liferayInfo" ref="liferayInfo" />
+        <property name="cliwixTransaction" ref="cliwixTransaction" />
+        <property name="processingInterceptor">
+            <bean class="at.nonblocking.cliwix.core.interceptor.ProcessingInterceptorDispatcher">
+                <property name="interceptors">
+                    <list>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplacePortletIdsOnPagesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceDocumentUrlsInArticlesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceDocumentUrlsInPageSettingsInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceIdsInPortletPreferencesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.IgnoreRegularRoleAssignmentsInterceptor" autowire="byType"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+        <property name="resourceAwareXmlSerializer" ref="resourceAwareXmlSerializer" />
+     </bean>
+
+    <bean id="liferayImporter" class="at.nonblocking.cliwix.core.LiferayImporterImpl">
+        <property name="handler" ref="dispatchHandler" />
+        <property name="liferayInfo" ref="liferayInfo" />
+        <property name="cliwixTransaction" ref="cliwixTransaction" />
+        <property name="liferayEntityComparator" ref="liferayEntityComparator" />
+        <property name="resourceAwareXmlSerializer" ref="resourceAwareXmlSerializer" />
+        <property name="validators">
+            <array>
+                <bean class="at.nonblocking.cliwix.core.validation.DefaultCompanyLiferayConfigValidator" />
+                <bean class="at.nonblocking.cliwix.core.validation.UniqueIdsLiferayConfigValidator" />
+                <bean class="at.nonblocking.cliwix.core.validation.GuestSiteLiferayConfigValidator" />
+                <bean class="at.nonblocking.cliwix.core.validation.ArticleStructureNameForDefaultLocaleLiferayConfigValidator" />
+                <bean class="at.nonblocking.cliwix.core.validation.ArticleTemplateNameForDefaultLocaleLiferayConfigValidator" />
+                <bean class="at.nonblocking.cliwix.core.validation.ArticleTemplateStructureIdRequiredIn61LiferayConfigValidator" autowire="byType" />
+                <bean class="at.nonblocking.cliwix.core.validation.ArticleTitleForDefaultLocaleLiferayConfigValidator" />
+            </array>
+        </property>
+        <property name="processingInterceptor">
+            <bean class="at.nonblocking.cliwix.core.interceptor.ProcessingInterceptorDispatcher">
+                <property name="interceptors">
+                    <list>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.DocumentLibraryMergeFromFilesystemInterceptor" />
+                        <bean class="at.nonblocking.cliwix.core.interceptor.SetFileDataOnFileEntriesInterceptor" />
+                        <bean class="at.nonblocking.cliwix.core.interceptor.SetPageOrderInterceptor" />
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplacePortletIdsOnPagesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceDocumentUrlsInArticlesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceDocumentUrlsInPageSettingsInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.ReplaceIdsInPortletPreferencesInterceptor" autowire="byType"/>
+                        <bean class="at.nonblocking.cliwix.core.interceptor.IgnoreRegularRoleAssignmentsInterceptor" autowire="byType"/>
+                    </list>
+                </property>
+            </bean>
+        </property>
+    </bean>
+
+</beans>

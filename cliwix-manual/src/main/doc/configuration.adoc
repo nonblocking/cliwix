@@ -1,0 +1,139 @@
+
+
+Configuration
+-------------
+
+Application Server
+~~~~~~~~~~~~~~~~~~
+
+* Heap memory: 2GB are recommended, although Cliwix works with much lesser memory.
+* PermSize: It might be necessary to increase the PermSize to 384MB, depending on what other webapps are installed on the server.
+
+Please refer to the documentation of your application server how to change these settings.
+
+[[anchor-workspace]]
+Cliwix Workspace
+~~~~~~~~~~~~~~~~
+
+The _Workspace_ directory contains the configuration and import/export data.
+It defaults to _<home_dir_of_user_under_which_the_server_runs>./cliwix_.
+
+There are two options to change the _Workspace_ location:
+
+. Define an environment variable *CLIWIX_WORKSPACE*:
+[source]
+export CLIWIX_WORKSPACE="/<your_path>"
+. Set a system property *CLIWIX_WORKSPACE*
+[source]
+-DCLIWIX_WORKSPACE="/<your_path>"
+
+Workspace Structure
+^^^^^^^^^^^^^^^^^^^
+
+* _export/_ (Export data)
+* _import/_ (Import data)
+* _logs/_ (Log files)
+* [_cliwix.properties_] (Optional, override properties)
+* [_portletPreferencesReplacements.xml_] (Optional, see <<anchor-portletpreferencesreplacements,Portlet Preferences Replacements>>)
+
+Cliwix Properties
+~~~~~~~~~~~~~~~~~
+
+Some default properties can be overridden in _WORKSPACE/cliwix.properties_:
+
+[options="header"]
+|=======================
+|Property|Default|Description
+|cliwix.ignoreRegularRoleAssignments|Guest,User |Don't process given roles during import or export.
+|cliwix.storeActualFileNameInDescription  |false     |Store the actual file name of an asset in the description field, if no description exists.
+|cliwix.webapp.enableSecurity |true     |Enable authentication.
+|cliwix.enableDebugLog |false     |Enable debug log for error tracing.
+|=======================
+
+[[anchor-portletpreferencesreplacements]]
+Portlet Preferences Replacements
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+TIP: Use this feature only if absolutely necessary. For necessary replacements in standard Liferay portlets you could alternatively issue
+a feature request.
+
+*Cliwix* tries to replace all instance specific IDs in the portlet preferences by database independent expressions
+(see <<anchor-expressions,Expressions>> for details).
+
+For example all occurrences of _groupId_ are replaced like this:
+
+[source,xml]
+<PortletPreferences>
+    <Preference>
+        <Name>showFoldersSearch</Name>
+        <Value>false</Value>
+    </Preference>
+    <Preference>
+        <Name>groupId</Name>
+        <Value>10254</Value>
+    </Preference>
+</PortletPreferences>
+
+becomes:
+
+[source,xml]
+<PortletPreferences>
+    <Preference>
+        <Name>showFoldersSearch</Name>
+        <Value>false</Value>
+    </Preference>
+    <Preference>
+        <Name>groupId</Name>
+        <Value>{{Site('Test').groupId}}</Value>
+    </Preference>
+</PortletPreferences>
+
+Now, *Cliwix* cannot now all possible preference names which needs to be replaced. To add custom replacements
+add a file _WORKSPACE/portletPreferencesReplacements.xml_ with a content like this:
+
+[source,xml]
+<?xml version="1.0" encoding="UTF-8"?>
+<PortletPreferencesReplacements>
+    <PortletPreferencesReplacement>
+        <Key>groupId</Key>
+        <Type>Group</Type>
+        <PropertyName>groupId</PropertyName>
+        <Multiple>false</Multiple>
+        <SkipOnFailure>true</SkipOnFailure>
+    </PortletPreferencesReplacement>
+     <PortletPreferencesReplacement>
+        <Key>foo</Key>
+        <Type>Company</Type>
+        <PropertyName>webId</PropertyName>
+        <Multiple>true</Multiple>
+        <Delimiter>,</Delimiter>
+        <SkipOnFailure>false</SkipOnFailure>
+     </PortletPreferencesReplacement>
+    <PortletPreferencesReplacement>
+        <!-- ... -->
+    </PortletPreferencesReplacement>
+</PortletPreferencesReplacements>
+
+Tag Description
+^^^^^^^^^^^^^^^
+
+[options="header"]
+|=======================
+|Tag Name|Description
+|Key   | The _Name_ of the portlet preference whose value needs to be replaced.
+|Type     | The entity type the ID represented by _Value_ refers to. The names are identical with the entity tags within the *Cliwix* XML. Examples are:
+ _Article_, _Company_, _User_, _Site_, _Group_, ...
+|PropertyName   | The property name of the entity which resolves to _Value_. The property names are identical with the sub tags in the *Cliwix* XML.
+|Multiple   | Are there multiple IDs in the _Value_ field?
+|Delimiter   | If _Mulitple_: The delimiter.
+|SkipOnFailure   | Don't stop the export if the _Value_ cannot be replaced.
+|=======================
+
+
+Security
+~~~~~~~~
+
+CAUTION: Never turn off authentication on production-like systems.
+
+CAUTION: Just like Liferay, *Cliwix* submits username and password in plain text. So never access Cliwix
+  via public internet or use some SSL/VPN mechanism.

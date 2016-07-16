@@ -1,0 +1,557 @@
+/*
+ * Copyright (c) 2014-2016
+ * nonblocking.at gmbh [http://www.nonblocking.at]
+ *
+ * This file is part of Cliwix.
+ *
+ * Cliwix is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* Variables */
+
+$nonblocking-font: "Helvetica Neue", Helvetica, Arial, sans-serif;
+$nonblocking-red: #923132;
+$nonblocking-red-lighten: lighten($nonblocking-red, 10%);
+$nonblocking-gray: #343333;
+$background-grey: #eee;
+$border-grey: #ddd;
+$inactive-tab-grey: #eee;
+$inactive-tab-grey-hover: #ddd;
+$text-grey: #999;
+
+@mixin button-gradiant {
+  background-image: linear-gradient(to bottom, $nonblocking-red-lighten 0px, $nonblocking-red 100%);
+  background-color: $nonblocking-red;
+}
+
+.icon-download:before {
+  font-family: FontAwesome;
+  content: '\f019';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.icon-report:before {
+  font-family: FontAwesome;
+  content: '\f0f6';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.icon-delete:before {
+  font-family: FontAwesome;
+  content: '\f00d';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+/* Basic */
+
+:focus {
+  outline: none !important;
+}
+
+::-moz-focus-inner {
+  border: 0 !important;
+}
+
+html {
+  font-family: $nonblocking-font;
+  font-size: 87.5%; //16px
+  color: $nonblocking-gray;
+}
+
+h2 {
+
+}
+
+h3 {
+  margin: 0;
+  padding: 20px 0;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+label {
+  font-weight: normal;
+  display: inline;
+
+  &.disabled {
+    color: $text-grey;
+  }
+}
+
+input[type="file"] {
+  display: inline;
+}
+
+input[type="text"], input[type="password"], input[type="number"], select {
+  box-shadow: none !important;
+  border: 1px solid $text-grey;
+  padding: 2px 3px;
+
+  &.ng-invalid {
+    background-color: #E7C3C3;
+    border: 1px solid $text-grey;
+  }
+}
+
+a {
+  color: $nonblocking-red;
+
+  &:hover {
+    color: $nonblocking-red;
+  }
+
+  &:focus {
+    color: $nonblocking-red;
+  }
+
+  &:visited {
+    color: $nonblocking-red;
+  }
+}
+
+/* Bootstrap overrides */
+
+//See http://angular-ui.github.io/bootstrap/
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+.nav {
+  & > li {
+    top: 2px;
+
+    & > a {
+      display: block;
+      padding: 4px 15px;
+      background-color: $inactive-tab-grey;
+
+      &:hover {
+        background-color: $inactive-tab-grey-hover;
+      }
+    }
+
+    &.active {
+      top: 0;
+
+      & > a {
+        padding: 6px 15px;
+        font-weight: 700;
+      }
+    }
+  }
+}
+
+.pagination {
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  & > .active {
+    & > a {
+      color: white;
+      @include button-gradiant;
+      border: 1px solid $nonblocking-red-lighten;
+
+      &:hover, &:focus, &:visited {
+        color: white;
+        background-color: $nonblocking-red;
+        border: 1px solid $nonblocking-red-lighten;
+      }
+    }
+  }
+
+  & > li {
+    & > a {
+      color: $nonblocking-red;
+
+      &:hover, &:focus, &:visited {
+        color: $nonblocking-red;
+      }
+    }
+
+    &.disabled {
+      & > a {
+        color: $text-grey;
+      }
+    }
+  }
+}
+
+td {
+  &.danger {
+    color: $nonblocking-red !important;
+  }
+
+  &.success {
+    color: #3c763d !important;;
+  }
+
+  &.info {
+    color: #31708f !important;;
+  }
+}
+
+.alert-danger {
+  color: $nonblocking-red;
+}
+
+.btn {
+
+  &.btn-default {
+    @include button-gradiant;
+    color: white;
+    text-shadow: none;
+    border: 1px solid $nonblocking-red-lighten;
+
+    &:disabled {
+      background-position: 0 0 !important;
+      text-shadow: none !important;
+    }
+
+    &:hover, &:focus, &:visited {
+      color: white;
+      background-color: $nonblocking-red;
+      border: 1px solid $nonblocking-red-lighten;
+    }
+  }
+
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+
+  input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 999px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+  }
+}
+
+.tooltip {
+  min-width: 200px;
+  max-width: 350px;
+  font-family: $nonblocking-font;
+  font-size: 1em;
+
+  .tooltip-inner {
+    padding: 5px 7px;
+    background-color: $background-grey;
+    color: black;
+    box-shadow: 2px 2px 1px $border-grey;
+  }
+
+  &.in {
+    opacity: 1;
+  }
+
+  &.top .tooltip-arrow {
+    border-top-color: $background-grey;
+  }
+
+  &.top-left .tooltip-arrow {
+    border-top-color: $background-grey;
+  }
+
+  &.top-right .tooltip-arrow {
+    border-top-color: $background-grey;
+  }
+
+  &.right .tooltip-arrow {
+    border-right-color: $background-grey;
+  }
+
+  &.left .tooltip-arrow {
+    border-left-color: $background-grey;
+  }
+
+  &.bottom .tooltip-arrow {
+    border-bottom-color: $background-grey;
+  }
+
+  &.bottom-left .tooltip-arrow {
+    border-bottom-color: $background-grey;
+  }
+
+  &.bottom-right .tooltip-arrow {
+    border-bottom-color: $background-grey;
+  }
+
+}
+
+
+/* Cliwix */
+
+#header {
+  height: 80px;
+
+  .logo {
+    float: left;
+    height: 50px;
+    padding-top: 10px;
+  }
+
+  #subtitle {
+    float: left;
+    padding: 10px 0 0 15px;
+    font-size: 1.3em;
+    line-height: 120%;
+  }
+
+  #header-right {
+    float: right;
+    padding: 10px 20px 10px 0;
+
+    #header-downloads {
+      float: left;
+      padding-right: 10px;
+
+      a {
+        display: block;
+        margin: 2px 0;
+      }
+    }
+
+    #header-user {
+      float: left;
+      text-align: right;
+
+      p {
+        margin: 2px 0;
+      }
+    }
+  }
+}
+
+.error-message {
+  clear: both;
+  padding: 10px;
+
+  button.close {
+    right: 0;
+    top: 0;
+  }
+}
+
+.main-menu {
+  clear: both;
+}
+
+.main-content {
+  border-left: 1px solid $border-grey;
+  border-right: 1px solid $border-grey;
+  border-bottom: 1px solid $border-grey;
+
+  &.topborder {
+    border-top: 1px solid $border-grey;
+  }
+
+  .form-input {
+    padding: 2px 0;
+
+    .form-input-subitem {
+      padding: 2px 0;
+      margin-left: 17px;
+    }
+  }
+
+  .form-input-select {
+
+    select {
+      clear: both;
+    }
+  }
+}
+
+.export {
+  padding: 5px 10px;
+
+  .export-settings-panel {
+    padding: 15px 0;
+
+    .button-export {
+      margin-top: 10px;
+    }
+  }
+
+  #export-list {
+    clear: both;
+    position: relative;
+  }
+}
+
+.import {
+  padding: 5px 10px;
+
+  .import-settings-panel {
+    padding: 15px 0;
+
+    .button-import {
+      margin-top: 10px;
+    }
+  }
+
+  #import-list {
+    clear: both;
+    position: relative;
+  }
+}
+
+table.import-export-list {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid $border-grey;
+
+  tr {
+    th {
+      padding: 4px;
+      font-size: 0.93em;
+    }
+
+    &.even {
+      background-color: $background-grey;
+    }
+
+    td {
+      padding: 4px;
+    }
+  }
+}
+
+.pagination-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+#login-form {
+  width: 250px;
+  margin: 50px auto;
+
+  .login-form-row {
+    margin: 7px 0;
+    overflow: hidden;
+    clear: both;
+
+    label {
+      width: 100px;
+      float: left;
+      padding-top: 2px;
+    }
+
+    input {
+      width: 140px;
+      float: left;
+    }
+  }
+
+  .login-form-button {
+    padding-top: 10px;
+  }
+}
+
+.busy {
+  position: absolute;
+  z-index: 1000;
+  top: 150px;
+  left: 40%;
+  margin: 0 auto;
+  width: 200px;
+  height: 55px;
+  padding-left: 20px;
+}
+
+.info-popover {
+  cursor: pointer;
+}
+
+#progress-panel {
+  margin: 26px;
+  position: relative;
+
+  .progress-bar {
+    @include button-gradiant;
+  }
+
+  .progress-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    color: white;
+    text-shadow: 1px 1px black;
+  }
+}
+
+.settings {
+  padding: 5px 10px;
+
+  .server-info-panel {
+    width: 50%;
+
+    tr {
+      &.even {
+        background-color: $background-grey;
+      }
+
+      td {
+        padding: 4px;
+      }
+    }
+
+    .info-value {
+      font-weight: 700;
+
+      div {
+        font-weight: 200;
+      }
+    }
+  }
+}
+
+.help {
+  padding: 5px 10px;
+}
+
+#footer {
+  & > .container {
+    margin-top: 5px;
+
+  }
+
+  #copyright, #licence {
+    padding-top: 10px;
+    text-align: center;
+  }
+}
+
+.fa-info-circle {
+  //color: $nonblocking-red;
+}
+
+

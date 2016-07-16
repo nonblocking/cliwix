@@ -1,0 +1,23 @@
+<section class="login">
+
+    <div id="login-form">
+        <form name="loginForm">
+
+            <h3>{{'login.title' | translate}}</h3>
+
+            <div class="login-form-row">
+                <label for="username">{{'login.username' | translate}}</label>
+                <input id="username" type="text" ng-model="username" on-enter="login()"/>
+            </div>
+            <div class="login-form-row">
+                <label for="password">{{'login.password' | translate}}</label>
+                <input id="password" type="password" ng-model="password" on-enter="login()"/>
+            </div>
+            <div class="login-form-row login-form-button">
+                <button class="btn btn-default" ng-click="login()" ng-disabled="!username || !password">{{ 'login.login' | translate }}</button>
+            </div>
+
+        </form>
+    </div>
+
+</section>

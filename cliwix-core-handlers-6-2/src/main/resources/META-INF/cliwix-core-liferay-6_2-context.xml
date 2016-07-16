@@ -1,0 +1,282 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  ~ Copyright (c) 2014-2016
+  ~ nonblocking.at gmbh [http://www.nonblocking.at]
+  ~
+  ~ This file is part of Cliwix.
+  ~
+  ~ Cliwix is free software: you can redistribute it and/or modify
+  ~ it under the terms of the GNU Affero General Public License as
+  ~ published by the Free Software Foundation, either version 3 of the
+  ~ License, or (at your option) any later version.
+  ~
+  ~ This program is distributed in the hope that it will be useful,
+  ~ but WITHOUT ANY WARRANTY; without even the implied warranty of
+  ~ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+  ~ GNU Affero General Public License for more details.
+  ~
+  ~ You should have received a copy of the GNU Affero General Public License
+  ~ along with this program. If not, see <http://www.gnu.org/licenses/>.
+  -->
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+
+    <!-- Liferay 6.2 Beans -->
+
+    <bean class="at.nonblocking.cliwix.core.liferay62.Liferay62BeansConfiguration" />
+    <bean class="org.springframework.context.annotation.ConfigurationClassPostProcessor"/>
+    <bean id="liferayEntityConverter" class="at.nonblocking.cliwix.core.liferay62.converter.LiferayEntityConverter62" autowire="byType"/>
+
+    <!-- Utils -->
+
+    <bean class="at.nonblocking.cliwix.core.liferay62.util.Liferay62StructureXsdUtilImpl" />
+    <bean class="at.nonblocking.cliwix.core.liferay62.util.TrashFilter62" />
+    <bean class="at.nonblocking.cliwix.core.liferay61.util.PortalInstanceUtilImpl" autowire="byType" />
+    <bean class="at.nonblocking.cliwix.core.liferay61.util.RoleAssignmentUtilImpl" autowire="byType" />
+    <bean class="at.nonblocking.cliwix.core.liferay61.util.NativeSqlAccessUtilImpl" autowire="byType" />
+
+    <!-- Handlers -->
+
+    <bean id="companyGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.CompanyGetByIdHandler" autowire="byType" />
+    <bean id="companyGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.CompanyGetByIdentifierHandler" autowire="byType" />
+    <bean id="companyListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.CompanyListHandler" autowire="byType" />
+    <bean id="companyInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.CompanyInsertHandler" autowire="byType" />
+    <bean id="companyUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.CompanyUpdateHandler" autowire="byType" />
+    <bean id="companyDeleteHandler" class="at.nonblocking.cliwix.core.liferay62.handler.CompanyDeleteHandler" autowire="byType" />
+
+    <bean id="roleGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleGetByIdHandler" autowire="byType" />
+    <bean id="roleGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleGetByIdentifierHandler" autowire="byType" />
+    <bean id="roleListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleListHandler" autowire="byType" />
+    <bean id="roleInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleInsertHandler" autowire="byType" />
+    <bean id="roleUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleUpdateHandler" autowire="byType" />
+    <bean id="roleDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RoleDeleteHandler" autowire="byType" />
+
+    <bean id="regularRoleAssignmentListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RegularRoleAssignmentListHandler" autowire="byType"/>
+    <bean id="regularRoleAssignmentInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RegularRoleAssignmentInsertHandler" autowire="byType"/>
+    <bean id="regularRoleAssignmentUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RegularRoleAssignmentUpdateHandler" autowire="byType" />
+    <bean id="regularRoleAssignmentDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RegularRoleAssignmentDeleteHandler" autowire="byType" />
+
+    <bean id="organizationGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationGetByIdHandler" autowire="byType" />
+    <bean id="organizationGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationGetByIdentifierHandler" autowire="byType" />
+    <bean id="organizationListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationListHandler" autowire="byType" />
+    <bean id="organizationInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationInsertHandler" autowire="byType" />
+    <bean id="organizationUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationUpdateHandler" autowire="byType" />
+    <bean id="organizationDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationDeleteHandler" autowire="byType" />
+
+    <bean id="organizationRoleAssignmentListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationRoleAssignmentListHandler" autowire="byType" />
+    <bean id="organizationRoleAssignmentInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationRoleAssignmentInsertHandler" autowire="byType" />
+    <bean id="organizationRoleAssignmentUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationRoleAssignmentUpdateHandler" autowire="byType" />
+    <bean id="organizationRoleAssignmentDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.OrganizationRoleAssignmentDeleteHandler" autowire="byType" />
+
+    <bean id="userGroupGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupGetByIdHandler" autowire="byType" />
+    <bean id="userGroupGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupGetByIdentifierHandler" autowire="byType" />
+    <bean id="userGroupListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupListHandler" autowire="byType" />
+    <bean id="userGroupInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupInsertHandler" autowire="byType" />
+    <bean id="userGroupUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupUpdateHandler" autowire="byType" />
+    <bean id="userGroupDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGroupDeleteHandler" autowire="byType" />
+
+    <bean id="userGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGetByIdHandler" autowire="byType" />
+    <bean id="userGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserGetByIdentifierHandler" autowire="byType" />
+    <bean id="userListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserListHandler" autowire="byType" />
+    <bean id="userInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserInsertHandler" autowire="byType" />
+    <bean id="userUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserUpdateHandler" autowire="byType" />
+    <bean id="userDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.UserDeleteHandler" autowire="byType" />
+
+    <bean id="portalPreferencesReadHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortalPreferencesReadHandler" autowire="byType" />
+    <bean id="portalPreferencesUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortalPreferencesUpdateHandler" autowire="byType" />
+    <bean id="portalPreferencesDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortalPreferencesDeleteHandler" autowire="byType" />
+
+    <bean id="siteGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteGetByIdHandler" autowire="byType" />
+    <bean id="siteGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteGetByIdentifierHandler" autowire="byType" />
+    <bean id="siteListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteListHandler" autowire="byType" />
+    <bean id="siteInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteInsertHandler" autowire="byType" />
+    <bean id="siteUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteUpdateHandler" autowire="byType" />
+    <bean id="siteDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteDeleteHandler" autowire="byType" />
+
+    <bean id="siteRoleAssignmentListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteRoleAssignmentListHandler" autowire="byType" />
+    <bean id="siteRoleAssignmentInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteRoleAssignmentInsertHandler" autowire="byType" />
+    <bean id="siteRoleAssignmentUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteRoleAssignmentUpdateHandler" autowire="byType" />
+    <bean id="siteRoleAssignmentDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.SiteRoleAssignmentDeleteHandler" autowire="byType" />
+
+    <bean id="pageSetReadHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageSetReadHandler" autowire="byType" />
+    <bean id="pageSetInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageSetInsertHandler" autowire="byType" />
+    <bean id="pageSetUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageSetUpdateHandler" autowire="byType" />
+    <bean id="pageSetDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageSetDeleteHandler" autowire="byType" />
+
+    <bean id="pageGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageGetByIdHandler" autowire="byType" />
+    <bean id="pageGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageGetByPathHandler" autowire="byType" />
+    <bean id="pageListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageListHandler" autowire="byType" />
+    <bean id="pageInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageInsertHandler" autowire="byType" />
+    <bean id="pageUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageUpdateHandler" autowire="byType" />
+    <bean id="pageDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PageDeleteHandler" autowire="byType" />
+
+    <bean id="portletConfigurationListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortletConfigurationListHandler" autowire="byType" />
+    <bean id="portletConfigurationInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortletConfigurationInsertHandler" autowire="byType" />
+    <bean id="portletConfigurationUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortletConfigurationUpdateHandler" autowire="byType" />
+    <bean id="portletConfigurationDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.PortletConfigurationDeleteHandler" autowire="byType" />
+
+    <bean id="resourcePermissionListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ResourcePermissionListHandler" autowire="byType" />
+    <bean id="resourcePermissionInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ResourcePermissionInsertHandler" autowire="byType" />
+    <bean id="resourcePermissionUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ResourcePermissionUpdateHandler" autowire="byType" />
+    <bean id="resourcePermissionDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ResourcePermissionDeleteHandler" autowire="byType" />
+
+    <bean id="rolePermissionListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RolePermissionListHandler" autowire="byType" />
+    <bean id="rolePermissionInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RolePermissionInsertHandler" autowire="byType" />
+    <bean id="rolePermissionUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RolePermissionUpdateHandler" autowire="byType" />
+    <bean id="rolePermissionDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.RolePermissionDeleteHandler" autowire="byType" />
+
+    <bean id="articleGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleGetByIdHandler" autowire="byType" />
+    <bean id="articleGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleGetByIdentifierHandler" autowire="byType" />
+    <bean id="articleListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleListHandler" autowire="byType" />
+    <bean id="articleInsertHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleInsertHandler" autowire="byType" />
+    <bean id="articleUpdateHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleUpdateHandler" autowire="byType" />
+    <bean id="articleDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleDeleteHandler" autowire="byType" />
+
+    <bean id="articleStructureGetByIdHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleStructureGetByIdHandler" autowire="byType" />
+    <bean id="articleStructureGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleStructureGetByIdentifierHandler" autowire="byType" />
+    <bean id="articleStructureListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleStructureListHandler" autowire="byType" />
+    <bean id="articleStructureInsertHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleStructureInsertHandler" autowire="byType" />
+    <bean id="articleStructureUpdateHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleStructureUpdateHandler" autowire="byType" />
+    <bean id="articleStructureDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleStructureDeleteHandler" autowire="byType" />
+
+    <bean id="articleTemplateGetByIdHandler" class="at.nonblocking.cliwix.core.liferay62.handler.ArticleTemplateGetByIdHandler" autowire="byType" />
+    <bean id="articleTemplateGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleTemplateGetByIdentifierHandler" autowire="byType" />
+    <bean id="articleTemplateListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleTemplateListHandler" autowire="byType" />
+    <bean id="articleTemplateInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleTemplateInsertHandler" autowire="byType" />
+    <bean id="articleTemplateUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleTemplateUpdateHandler" autowire="byType" />
+    <bean id="articleTemplateDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ArticleTemplateDeleteHandler" autowire="byType" />
+
+    <bean id="documentLibraryFolderGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryFolderGetByIdHandler" autowire="byType" />
+    <bean id="documentLibraryFileGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryFileGetByIdHandler" autowire="byType" />
+    <bean id="documentLibraryFolderGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryFolderGetByPathHandler" autowire="byType" />
+    <bean id="documentLibraryFileGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryFileGetByPathHandler" autowire="byType" />
+    <bean id="documentLibraryItemListHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryItemListHandler" autowire="byType" />
+    <bean id="documentLibraryItemInsertHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryItemInsertHandler" autowire="byType" />
+    <bean id="documentLibraryItemUpdateHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryItemUpdateHandler" autowire="byType" />
+    <bean id="documentLibraryItemDeleteHandler" class="at.nonblocking.cliwix.core.liferay61.handler.DocumentLibraryItemDeleteHandler" autowire="byType" />
+
+    <bean id="classNameGetByIdHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ClassNameGetByIdHandler" autowire="byType" />
+    <bean id="classNameGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ClassNameGetByIdentifierHandler" autowire="byType" />
+
+    <bean id="documentLibraryFileTypeGetByIdHandler" class="at.nonblocking.cliwix.core.liferay62.handler.DocumentLibraryFileTypeGetByIdHandler" autowire="byType" />
+    <bean id="documentLibraryFileTypeGetByNaturalIdentifierHandler" class="at.nonblocking.cliwix.core.liferay62.handler.DocumentLibraryFileTypeGetByIdentifierHandler" autowire="byType" />
+
+    <bean id="dispatchHandler" class="at.nonblocking.cliwix.core.handler.DispatchHandler">
+        <property name="cliwixTransaction" ref="cliwixTransaction" />
+        <property name="handlers">
+            <list>
+                <ref bean="companyGetByIdHandler" />
+                <ref bean="companyGetByNaturalIdentifierHandler" />
+                <ref bean="companyListHandler" />
+                <ref bean="companyInsertHandler" />
+                <ref bean="companyUpdateHandler" />
+                <ref bean="companyDeleteHandler" />
+                <ref bean="roleGetByIdHandler" />
+                <ref bean="roleGetByNaturalIdentifierHandler" />
+                <ref bean="roleListHandler" />
+                <ref bean="roleInsertHandler" />
+                <ref bean="roleUpdateHandler" />
+                <ref bean="roleDeleteHandler" />
+                <ref bean="regularRoleAssignmentListHandler" />
+                <ref bean="regularRoleAssignmentInsertHandler" />
+                <ref bean="regularRoleAssignmentUpdateHandler" />
+                <ref bean="regularRoleAssignmentDeleteHandler" />
+                <ref bean="organizationGetByIdHandler" />
+                <ref bean="organizationGetByNaturalIdentifierHandler" />
+                <ref bean="organizationListHandler" />
+                <ref bean="organizationInsertHandler" />
+                <ref bean="organizationUpdateHandler" />
+                <ref bean="organizationDeleteHandler" />
+                <ref bean="organizationRoleAssignmentListHandler" />
+                <ref bean="organizationRoleAssignmentInsertHandler" />
+                <ref bean="organizationRoleAssignmentUpdateHandler" />
+                <ref bean="organizationRoleAssignmentDeleteHandler" />
+                <ref bean="userGroupGetByIdHandler" />
+                <ref bean="userGroupGetByNaturalIdentifierHandler" />
+                <ref bean="userGroupListHandler" />
+                <ref bean="userGroupInsertHandler" />
+                <ref bean="userGroupUpdateHandler" />
+                <ref bean="userGroupDeleteHandler" />
+                <ref bean="userGetByIdHandler" />
+                <ref bean="userGetByNaturalIdentifierHandler" />
+                <ref bean="userListHandler" />
+                <ref bean="userInsertHandler" />
+                <ref bean="userUpdateHandler" />
+                <ref bean="userDeleteHandler" />
+                <ref bean="portalPreferencesDeleteHandler" />
+                <ref bean="portalPreferencesReadHandler" />
+                <ref bean="portalPreferencesUpdateHandler" />
+                <ref bean="siteGetByIdHandler" />
+                <ref bean="siteGetByNaturalIdentifierHandler" />
+                <ref bean="siteListHandler" />
+                <ref bean="siteInsertHandler" />
+                <ref bean="siteUpdateHandler" />
+                <ref bean="siteDeleteHandler" />
+                <ref bean="siteRoleAssignmentListHandler" />
+                <ref bean="siteRoleAssignmentInsertHandler" />
+                <ref bean="siteRoleAssignmentUpdateHandler" />
+                <ref bean="siteRoleAssignmentDeleteHandler" />
+                <ref bean="pageSetReadHandler" />
+                <ref bean="pageSetInsertHandler" />
+                <ref bean="pageSetUpdateHandler" />
+                <ref bean="pageSetDeleteHandler" />
+                <ref bean="pageGetByIdHandler" />
+                <ref bean="pageGetByNaturalIdentifierHandler" />
+                <ref bean="pageListHandler" />
+                <ref bean="pageInsertHandler" />
+                <ref bean="pageUpdateHandler" />
+                <ref bean="pageDeleteHandler" />
+                <ref bean="portletConfigurationListHandler" />
+                <ref bean="portletConfigurationInsertHandler" />
+                <ref bean="portletConfigurationUpdateHandler" />
+                <ref bean="portletConfigurationDeleteHandler" />
+                <ref bean="resourcePermissionListHandler" />
+                <ref bean="resourcePermissionInsertHandler" />
+                <ref bean="resourcePermissionUpdateHandler" />
+                <ref bean="resourcePermissionDeleteHandler" />
+                <ref bean="rolePermissionListHandler" />
+                <ref bean="rolePermissionInsertHandler" />
+                <ref bean="rolePermissionUpdateHandler" />
+                <ref bean="rolePermissionDeleteHandler" />
+                <ref bean="articleGetByIdHandler" />
+                <ref bean="articleGetByNaturalIdentifierHandler" />
+                <ref bean="articleListHandler" />
+                <ref bean="articleInsertHandler" />
+                <ref bean="articleUpdateHandler" />
+                <ref bean="articleDeleteHandler" />
+                <ref bean="articleStructureGetByIdHandler" />
+                <ref bean="articleStructureGetByNaturalIdentifierHandler" />
+                <ref bean="articleStructureListHandler" />
+                <ref bean="articleStructureInsertHandler" />
+                <ref bean="articleStructureUpdateHandler" />
+                <ref bean="articleStructureDeleteHandler" />
+                <ref bean="articleTemplateGetByIdHandler" />
+                <ref bean="articleTemplateGetByNaturalIdentifierHandler" />
+                <ref bean="articleTemplateListHandler" />
+                <ref bean="articleTemplateInsertHandler" />
+                <ref bean="articleTemplateUpdateHandler" />
+                <ref bean="articleTemplateDeleteHandler" />
+                <ref bean="documentLibraryFolderGetByIdHandler" />
+                <ref bean="documentLibraryFileGetByIdHandler" />
+                <ref bean="documentLibraryFolderGetByNaturalIdentifierHandler" />
+                <ref bean="documentLibraryFileGetByNaturalIdentifierHandler" />
+                <ref bean="documentLibraryFileTypeGetByIdHandler" />
+                <ref bean="documentLibraryFileTypeGetByNaturalIdentifierHandler" />
+                <ref bean="documentLibraryItemListHandler" />
+                <ref bean="documentLibraryItemInsertHandler" />
+                <ref bean="documentLibraryItemUpdateHandler" />
+                <ref bean="documentLibraryItemDeleteHandler" />
+                <ref bean="classNameGetByIdHandler" />
+                <ref bean="classNameGetByNaturalIdentifierHandler" />
+            </list>
+        </property>
+    </bean>
+
+    <!-- Security handler -->
+
+    <bean id="executionContextSecurityHandler" class="at.nonblocking.cliwix.core.liferay61.handler.ExecutionContextSecurityHandlerImpl" autowire="byType"/>
+
+</beans>

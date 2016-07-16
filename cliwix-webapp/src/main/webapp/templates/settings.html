@@ -1,0 +1,29 @@
+<section class="settings">
+
+    <div>
+        <h3>{{'server.information' | translate}}</h3>
+
+        <div class="server-info-panel">
+            <table class="table">
+                <tr>
+                    <td>{{'liferay.release' | translate}}:</td>
+                    <td class="info-value">{{info.liferayRelease}}</td>
+                </tr>
+                <tr class="even">
+                    <td>{{'cliwix.version' | translate}}:</td>
+                    <td class="info-value">{{info.cliwixVersion}}</td>
+                </tr>
+                <tr>
+                    <td>{{'cliwix.workspace.directory' | translate}}:</td>
+                    <td class="info-value">
+                        {{info.cliwixWorkspaceDirectory}}
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'info.cliwixWorkspaceDirectory.tooltip' | translate }}"></span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <br/>
+
+</section>

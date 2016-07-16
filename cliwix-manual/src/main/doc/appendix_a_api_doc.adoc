@@ -1,0 +1,8 @@
+
+
+[[anchor-appendix-a]]
+[appendix]
+Java API Documentation
+----------------------
+
+include::../../../target/generated_api_doc.adoc[]

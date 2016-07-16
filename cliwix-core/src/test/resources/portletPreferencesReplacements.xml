@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PortletPreferencesReplacements>
+    <PortletPreferencesReplacement>
+        <Key>foo</Key>
+        <Type>Company</Type>
+        <PropertyName>webId</PropertyName>
+        <Multiple>true</Multiple>
+        <Delimiter>,</Delimiter>
+        <SkipOnFailure>false</SkipOnFailure>
+    </PortletPreferencesReplacement>
+    <PortletPreferencesReplacement>
+        <Key>classNameId</Key>
+        <Type>ClassName</Type>
+        <PropertyName>classNameId</PropertyName>
+    </PortletPreferencesReplacement>
+    <PortletPreferencesReplacement>
+        <Key>classNameIds</Key>
+        <Type>ClassName</Type>
+        <PropertyName>classNameId</PropertyName>
+        <Multiple>true</Multiple>
+        <Delimiter>,</Delimiter>
+    </PortletPreferencesReplacement>
+</PortletPreferencesReplacements>

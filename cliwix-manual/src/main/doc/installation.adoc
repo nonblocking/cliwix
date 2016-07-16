@@ -1,0 +1,51 @@
+
+
+Installation
+------------
+
+Requirements
+~~~~~~~~~~~~
+
+IMPORTANT: Please make sure you fulfill the following minimum requirements before deploying Cliwix.
+
+* Java Version: >= 7
+* Liferay Version: 6.1 CE/EE, 6.2 CE/EE
+* Application Servers: Tomcat, JBoss EAP 6/AS 7 ^1)^
+* Browsers: IE10+, Firefox 20+, Chrome 28+, Safari 5+ ^2)^
+
+^1)^ Other application servers might work as well, but require some extra configuration.
+Please http://www.cliwix.com/support[contact us] if you need support.
+
+^2)^ For the WebClient only
+
+Deployment
+~~~~~~~~~~
+
+*Cliwix* is neither a Liferay plugin nor a Java portlet, but rather a standalone web application that
+resides beside Liferay in the same container and communicates via the shared service API:
+
+image::cliwix_deployment.png[Deployment,scaledwidth=60%]
+
+Deploy the WAR
+~~~~~~~~~~~~~~
+
+Tomcat
+^^^^^^
+
+. Rename _cliwix-<version>.war_ to _cliwix.war_
+. Copy _cliwix.war to_ _<liferay-folder>/<tomcat-folder>/webapps_
+
+JBoss
+^^^^^
+
+. Rename _cliwix-<version>.war_ to _cliwix.war_
+. Copy _cliwix.war_ to _<liferay-folder>/<jboss-folder>/standalone/deployments_
+. If auto deployment is disabled: Create a file _cliwix.dodeploy_ in the same folder
+
+Test the Deployment
+~~~~~~~~~~~~~~~~~~~
+
+After a successful deployment the *Cliwix* Web Client should be available under http://localhost:8080/cliwix.
+
+TIP: The port depends on your configuration. 8080 is the default for most application servers.
+

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Page  xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../main/resources/cliwix_1_1.xsd"
+        url="/product1">
+    <PageType>PORTLET</PageType>
+    <Names>
+        <Name locale="en_US">Domestic Home</Name>
+        <Name locale="de_DE">Sicher Wohnen</Name>
+    </Names>
+    <Titles>
+        <Title locale="en_US">Domestic Home</Title>
+        <Title locale="de_DE">Sicher Wohnen</Title>
+    </Titles>
+    <PageSettings>
+        <PageSetting>
+            <Key>layout-template-id</Key>
+            <Value>1_column</Value>
+        </PageSetting>
+        <PageSetting>
+            <Key>column-1-customizable</Key>
+            <Value>false</Value>
+        </PageSetting>
+        <PageSetting>
+            <Key>column-1</Key>
+            <Value>nonblocking_at_portlet1</Value>
+        </PageSetting>
+    </PageSettings>
+    <Permissions>
+        <Permission role="DEMO_ROLE1">
+            <Actions>
+                <Action>VIEW</Action>
+            </Actions>
+        </Permission>
+        <Permission role="Owner">
+            <Actions>
+                <Action>VIEW</Action>
+                <Action>ADD_LAYOUT</Action>
+                <Action>CONFIGURE_PORTLETS</Action>
+                <Action>CUSTOMIZE</Action>
+                <Action>DELETE</Action>
+                <Action>PERMISSIONS</Action>
+                <Action>UPDATE</Action>
+            </Actions>
+        </Permission>
+    </Permissions>
+</Page>
+

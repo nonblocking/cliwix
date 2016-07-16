@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<SiteMembers xmlns="http://nonblocking.at/cliwix"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://nonblocking.at/cliwix ../../main/resources/cliwix_1_1.xsd">
+    <MemberUserGroups>
+        <UserGroup name="DEMO_USER_GROUP1" />
+        <UserGroup name="DEMO_USER_GROUP2" />
+    </MemberUserGroups>
+    <MemberOrganizations>
+        <Organization name="TEST_ORG1" />
+    </MemberOrganizations>
+    <MemberUsers>
+        <User screenName="demouser2" />
+    </MemberUsers>
+</SiteMembers>

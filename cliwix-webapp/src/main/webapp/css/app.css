@@ -1,0 +1,443 @@
+/*
+ * Copyright (c) 2014-2016
+ * nonblocking.at gmbh [http://www.nonblocking.at]
+ *
+ * This file is part of Cliwix.
+ *
+ * Cliwix is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as
+ * published by the Free Software Foundation, either version 3 of the
+ * License, or (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU Affero General Public License for more details.
+ *
+ * You should have received a copy of the GNU Affero General Public License
+ * along with this program. If not, see <http://www.gnu.org/licenses/>.
+ */
+/* Variables */
+.icon-download:before {
+  font-family: FontAwesome;
+  content: '\f019';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.icon-report:before {
+  font-family: FontAwesome;
+  content: '\f0f6';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+.icon-delete:before {
+  font-family: FontAwesome;
+  content: '\f00d';
+  display: inline-block;
+  padding-right: 5px;
+}
+
+/* Basic */
+:focus {
+  outline: none !important;
+}
+
+::-moz-focus-inner {
+  border: 0 !important;
+}
+
+html {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 87.5%;
+  color: #343333;
+}
+
+h3 {
+  margin: 0;
+  padding: 20px 0;
+  font-weight: 700;
+  font-size: 1em;
+}
+
+h4 {
+  font-size: 1em;
+}
+
+label {
+  font-weight: normal;
+  display: inline;
+}
+label.disabled {
+  color: #999;
+}
+
+input[type="file"] {
+  display: inline;
+}
+
+input[type="text"], input[type="password"], input[type="number"], select {
+  box-shadow: none !important;
+  border: 1px solid #999;
+  padding: 2px 3px;
+}
+input[type="text"].ng-invalid, input[type="password"].ng-invalid, input[type="number"].ng-invalid, select.ng-invalid {
+  background-color: #E7C3C3;
+  border: 1px solid #999;
+}
+
+a {
+  color: #923132;
+}
+a:hover {
+  color: #923132;
+}
+a:focus {
+  color: #923132;
+}
+a:visited {
+  color: #923132;
+}
+
+/* Bootstrap overrides */
+.nav, .pagination, .carousel, .panel-title a {
+  cursor: pointer;
+}
+
+.nav > li {
+  top: 2px;
+}
+.nav > li > a {
+  display: block;
+  padding: 4px 15px;
+  background-color: #eee;
+}
+.nav > li > a:hover {
+  background-color: #ddd;
+}
+.nav > li.active {
+  top: 0;
+}
+.nav > li.active > a {
+  padding: 6px 15px;
+  font-weight: 700;
+}
+
+.pagination {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.pagination > .active > a {
+  color: white;
+  background-image: linear-gradient(to bottom, #b83e3f 0px, #923132 100%);
+  background-color: #923132;
+  border: 1px solid #b83e3f;
+}
+.pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active > a:visited {
+  color: white;
+  background-color: #923132;
+  border: 1px solid #b83e3f;
+}
+.pagination > li > a {
+  color: #923132;
+}
+.pagination > li > a:hover, .pagination > li > a:focus, .pagination > li > a:visited {
+  color: #923132;
+}
+.pagination > li.disabled > a {
+  color: #999;
+}
+
+td.danger {
+  color: #923132 !important;
+}
+td.success {
+  color: #3c763d !important;
+}
+td.info {
+  color: #31708f !important;
+}
+
+.alert-danger {
+  color: #923132;
+}
+
+.btn.btn-default {
+  background-image: linear-gradient(to bottom, #b83e3f 0px, #923132 100%);
+  background-color: #923132;
+  color: white;
+  text-shadow: none;
+  border: 1px solid #b83e3f;
+}
+.btn.btn-default:disabled {
+  background-position: 0 0 !important;
+  text-shadow: none !important;
+}
+.btn.btn-default:hover, .btn.btn-default:focus, .btn.btn-default:visited {
+  color: white;
+  background-color: #923132;
+  border: 1px solid #b83e3f;
+}
+
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+.btn-file input[type=file] {
+  position: absolute;
+  top: 0;
+  right: 0;
+  min-width: 100%;
+  min-height: 100%;
+  font-size: 999px;
+  text-align: right;
+  filter: alpha(opacity=0);
+  opacity: 0;
+  outline: none;
+  background: white;
+  cursor: inherit;
+  display: block;
+}
+
+.tooltip {
+  min-width: 200px;
+  max-width: 350px;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+}
+.tooltip .tooltip-inner {
+  padding: 5px 7px;
+  background-color: #eee;
+  color: black;
+  box-shadow: 2px 2px 1px #ddd;
+}
+.tooltip.in {
+  opacity: 1;
+}
+.tooltip.top .tooltip-arrow {
+  border-top-color: #eee;
+}
+.tooltip.top-left .tooltip-arrow {
+  border-top-color: #eee;
+}
+.tooltip.top-right .tooltip-arrow {
+  border-top-color: #eee;
+}
+.tooltip.right .tooltip-arrow {
+  border-right-color: #eee;
+}
+.tooltip.left .tooltip-arrow {
+  border-left-color: #eee;
+}
+.tooltip.bottom .tooltip-arrow {
+  border-bottom-color: #eee;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  border-bottom-color: #eee;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  border-bottom-color: #eee;
+}
+
+/* Cliwix */
+#header {
+  height: 80px;
+}
+#header .logo {
+  float: left;
+  height: 50px;
+  padding-top: 10px;
+}
+#header #subtitle {
+  float: left;
+  padding: 10px 0 0 15px;
+  font-size: 1.3em;
+  line-height: 120%;
+}
+#header #header-right {
+  float: right;
+  padding: 10px 20px 10px 0;
+}
+#header #header-right #header-downloads {
+  float: left;
+  padding-right: 10px;
+}
+#header #header-right #header-downloads a {
+  display: block;
+  margin: 2px 0;
+}
+#header #header-right #header-user {
+  float: left;
+  text-align: right;
+}
+#header #header-right #header-user p {
+  margin: 2px 0;
+}
+
+.error-message {
+  clear: both;
+  padding: 10px;
+}
+.error-message button.close {
+  right: 0;
+  top: 0;
+}
+
+.main-menu {
+  clear: both;
+}
+
+.main-content {
+  border-left: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+}
+.main-content.topborder {
+  border-top: 1px solid #ddd;
+}
+.main-content .form-input {
+  padding: 2px 0;
+}
+.main-content .form-input .form-input-subitem {
+  padding: 2px 0;
+  margin-left: 17px;
+}
+.main-content .form-input-select select {
+  clear: both;
+}
+
+.export {
+  padding: 5px 10px;
+}
+.export .export-settings-panel {
+  padding: 15px 0;
+}
+.export .export-settings-panel .button-export {
+  margin-top: 10px;
+}
+.export #export-list {
+  clear: both;
+  position: relative;
+}
+
+.import {
+  padding: 5px 10px;
+}
+.import .import-settings-panel {
+  padding: 15px 0;
+}
+.import .import-settings-panel .button-import {
+  margin-top: 10px;
+}
+.import #import-list {
+  clear: both;
+  position: relative;
+}
+
+table.import-export-list {
+  width: 100%;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+}
+table.import-export-list tr th {
+  padding: 4px;
+  font-size: 0.93em;
+}
+table.import-export-list tr.even {
+  background-color: #eee;
+}
+table.import-export-list tr td {
+  padding: 4px;
+}
+
+.pagination-wrapper {
+  width: 100%;
+  text-align: center;
+}
+
+#login-form {
+  width: 250px;
+  margin: 50px auto;
+}
+#login-form .login-form-row {
+  margin: 7px 0;
+  overflow: hidden;
+  clear: both;
+}
+#login-form .login-form-row label {
+  width: 100px;
+  float: left;
+  padding-top: 2px;
+}
+#login-form .login-form-row input {
+  width: 140px;
+  float: left;
+}
+#login-form .login-form-button {
+  padding-top: 10px;
+}
+
+.busy {
+  position: absolute;
+  z-index: 1000;
+  top: 150px;
+  left: 40%;
+  margin: 0 auto;
+  width: 200px;
+  height: 55px;
+  padding-left: 20px;
+}
+
+.info-popover {
+  cursor: pointer;
+}
+
+#progress-panel {
+  margin: 26px;
+  position: relative;
+}
+#progress-panel .progress-bar {
+  background-image: linear-gradient(to bottom, #b83e3f 0px, #923132 100%);
+  background-color: #923132;
+}
+#progress-panel .progress-text {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px black;
+}
+
+.settings {
+  padding: 5px 10px;
+}
+.settings .server-info-panel {
+  width: 50%;
+}
+.settings .server-info-panel tr.even {
+  background-color: #eee;
+}
+.settings .server-info-panel tr td {
+  padding: 4px;
+}
+.settings .server-info-panel .info-value {
+  font-weight: 700;
+}
+.settings .server-info-panel .info-value div {
+  font-weight: 200;
+}
+
+.help {
+  padding: 5px 10px;
+}
+
+#footer > .container {
+  margin-top: 5px;
+}
+#footer #copyright, #footer #licence {
+  padding-top: 10px;
+  text-align: center;
+}
+
+/*# sourceMappingURL=app.css.map */

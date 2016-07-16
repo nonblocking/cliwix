@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd"
+        modelVersion="1.1">
+    <Companies>
+        <Company webID="CliwixDemo5">
+            <CompanyConfiguration>
+                <VirtualHost>localhost</VirtualHost>
+                <MailDomain>nonblocking.at</MailDomain>
+                <HomeURL>/web/demo</HomeURL>
+                <AccountName>CliwixDemo</AccountName>
+                <Active>true</Active>
+                <DefaultLocale>de_DE</DefaultLocale>
+                <DefaultTimezone>Europe/Vienna</DefaultTimezone>
+                <DefaultGreeting>Herzlich Willkommen!</DefaultGreeting>
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <Preference>
+                    <Name>default.landing.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>default.logout.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auto.login</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.site.logo</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>terms.of.use.required</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auth.type</Name>
+                    <Value>screenName</Value>
+                </Preference>
+            </PortalPreferences>
+            <Users>
+                <User screenName="demoadmin">
+                    <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>Administrator</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo Admin!</Greeting>
+                </User>
+                <User screenName="demouser">
+                    <EmailAddress>demoUser@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo User!</Greeting>
+                </User>
+                <!-- Error: Duplicate screenName -->
+                <User screenName="demouser">
+                    <EmailAddress>demoUser2@nonblocking.at</EmailAddress>
+                    <FirstName>Demo2</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>en_US</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Welcome Demo User 2!</Greeting>
+                </User>
+            </Users>
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP1">
+                </UserGroup>
+                <UserGroup name="DEMO_USER_GROUP2">
+                </UserGroup>
+            </UserGroups>
+            <Roles>
+                <Role name="DEMO_ROLE1">
+                    <Titles>
+                        <Title locale="en_US">Demo Role 1</Title>
+                        <Title locale="de_DE">Demo Rolle 1</Title>
+                    </Titles>
+                </Role>
+                <Role name="DEMO_ROLE2" />
+                <Role name="DEMO_ROLE3" />
+            </Roles>
+            <RegularRoleAssignments>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE3">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="Administrator">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                    </MemberUsers>
+                </Role>
+                <Role name="Power User">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                        <User screenName="demouser" />
+                        <User screenName="demouser2" />
+                    </MemberUsers>
+                </Role>
+            </RegularRoleAssignments>
+        </Company>
+    </Companies>
+</LiferayConfig>

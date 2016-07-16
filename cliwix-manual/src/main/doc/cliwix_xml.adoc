@@ -1,0 +1,464 @@
+
+
+Cliwix XML
+----------
+
+Structure
+~~~~~~~~~
+
+The basic structure of a *Cliwix* XML file looks like this:
+
+[source,xml]
+----
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix cliwix_1_1.xsd"
+        modelVersion="1.1">
+    <Companies policy="UPDATE_INSERT">
+        <Company webID="CliwixDemo">
+            <CompanyConfiguration>
+                <VirtualHost>localhost</VirtualHost>
+                <!-- Other company data -->
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <!-- Preferences -->
+            </PortalPreferences>
+
+            <Users>
+                <User screenName="demoUser">
+                    <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+                    <!-- Other user data -->
+                </User>
+                <!-- More users -->
+            </Users>
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP">
+                    <MemberUsers>
+                        <User screenName="demoUser" />
+                        <!-- Other members -->
+                    </MemberUsers>
+                </UserGroup>
+                <!-- More user Groups -->
+            </UserGroups>
+            <Roles>
+                <Role name="DEMO_ROLE1">
+                    <!-- Role titles -->
+                    <Permissions>
+                       <!-- Role permissions -->
+                    </Permissions>
+                </Role>
+                <!-- More roles -->
+            </Roles>
+            <Organizations>
+                <Organization name="DEMO_ORG">
+                    <!-- Organization data -->
+                     <OrganizationMembers>
+                        <MemberUsers>
+                            <!-- Member users -->
+                        </MemberUsers>
+                    </OrganizationMembers>
+                    <OrganizationRoleAssignments>
+                        <!-- Organization role assignment -->
+                    </OrganizationRoleAssignments>
+                    <SubOrganizations>
+                        <!-- Sub organizations -->
+                    </SubOrganizations>
+                </Organization>
+                <!-- More organizations -->
+            </Organizations>
+
+            <RegularRoleAssignments>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <!-- Member user groups -->
+                    </MemberUserGroups>
+                    <MemberOrganizations>
+                        <!-- Member organizations -->
+                    </MemberOrganizations>
+                    <MemberUsers>
+                        <!-- Member users -->
+                    </MemberUsers>
+                </Role>
+                <!-- More role assignments -->
+            </RegularRoleAssignments>
+
+            <Sites>
+                <Site name="Demo">
+                    <SiteConfiguration>
+                        <FriendlyURL>/guest</FriendlyURL>
+                        <!-- other site data -->
+                    </SiteConfiguration>
+
+                    <SiteMembers>
+                        <MemberUserGroups>
+                             <!-- Member Groups -->
+                         </MemberUserGroups>
+                        <MemberOrganizations>
+                            <!-- Member Organizations -->
+                        </MemberOrganizations>
+                        <MemberUsers>
+                            <!-- Member Users -->
+                        </MemberUsers>
+                    </SiteMembers>
+                    <SiteRoleAssignments>
+                        <Role name="Site_PowerUser">
+                            <MemberUserGroups>
+                                <UserGroup name="DEMO_USER_GROUP2" />
+                            </MemberUserGroups>
+                            <MemberUsers>
+                                <User screenName="demouser2" />
+                            </MemberUsers>
+                        </Role>
+                        <!-- More site role assignments -->
+                    </SiteRoleAssignments>
+
+                    <SiteContent>
+                        <DocumentLibrary fileDataFolder="data">
+                            <Entries>
+                                <Folder name="foo">
+                                    <Permissions>
+                                        <!-- Folder permissions -->
+                                    </Permissions>
+                                    <SubEntries>
+                                        <!-- Sub folders, files -->
+                                    </SubEntries>
+                                </Folder>
+                                <File name="test1">
+                                    <FileDataName>test1.zip</FileDataName>
+                                    <Permissions>
+                                        <!-- File permissions -->
+                                    </Permissions>
+                                </File>
+                            </Entries>
+                           <!-- Document library entries -->
+                        </DocumentLibrary>
+                        <WebContent>
+                            <Structures>
+                                <!-- Article structures -->
+                            </Structures>
+                            <Templates>
+                                <!-- Article templates -->
+                            </Templates>
+                            <Articles>
+                                <StaticArticle articleId="1">
+                                    <!-- Article data, name, title -->
+                                   <Permissions>
+                                       <!-- Article permissions -->
+                                   </Permissions>
+                                </StaticArticle>
+                                <TemplateDrivenArticle articleId="2">
+                                    <!-- Article data, name, title,
+                                         structure id, template id -->
+                                    <Permissions>
+                                        <!-- Article permissions -->
+                                    </Permissions>
+                                </TemplateDrivenArticle>
+                                <!-- Other articles -->
+                            </Articles>
+                        </WebContent>
+                    </SiteContent>
+
+                    <PublicPages>
+                        <!-- Public pages settings -->
+                        <Pages>
+                            <Page url="/home">
+                                <!-- Page type, name, title, keywords, robots -->
+                                <PageSettings>
+                                    <!-- Page settings (e.g. portlets) -->
+                                </PageSettings>
+                                <Permissions policy="ENFORCE">
+                                    <!-- Page permissions -->
+                                </Permissions>
+                                <PortletConfigurations>
+                                    <PortletConfiguration portletId="31">
+                                        <PortletPreferences>
+                                            <!-- Portlet preferences -->
+                                        </PortletPreferences>
+                                        <Permissions>
+                                            <!-- Portlet permissions -->
+                                        </Permissions>
+                                    </PortletConfiguration>
+                                    <!-- Other portlet configurations -->
+                                </PortletConfigurations>
+                                <SubPages>
+                                    <!-- Sub pages -->
+                                </SubPages>
+                            </Page>
+                            <!-- Other pages -->
+                        </Pages>
+                    </PublicPages>
+                    <PrivatePages>
+                        <!-- Private pages settings -->
+                    </PrivatePages>
+
+                </Site>
+                <!-- More sites -->
+            </Sites>
+        </Company>
+        <!-- More companies -->
+    </Companies>
+</LiferayConfig>
+----
+
+Notes:
+
+ * The root element must be *LiferayConfig* with the namespace http://nonblocking.at/cliwix.
+ * Not all of the elements must be present. In fact, all list and tree root elements (such as Users, Organizations, Articles, ...) are
+   fully optional. See <<anchor-nonexistinglists, Empty vs Non-Existing Lists>>
+ * The single attribute of an entity (e.g. User, Organization, Article) always define the _natural key_. If this key
+   changes, it is considered as different entity.
+ * A *Company* is a portal instance. The default portal instance is the one with the virtual host _localhost_.
+ * The optional attribute _policy_ determines how changes are processed, see <<anchor-importpolicies, Import Policies>>.
+ * The attribute _fileDataFolder_ of the element *DocumentLibrary* must contain the relative path to the folder
+   with the actual file data. In the example above, a file _data/test1.zip_ must exists relative to the XML file.
+
+
+Change Detection
+~~~~~~~~~~~~~~~~
+
+During import an entity is considered as:
+
+ * NEW: If an entity with the same _natural key_ doesn't exist already
+ * UPDATED: If an entity with the same _natural key_ does exist but some data is different.
+   Document library files are also considered as updated if the last modified timestamp of the file
+   is newer than the timestamp of the existing entry.
+ * REMOVED: If an existing entity does not exist in the *Cliwix* XML
+
+
+[[anchor-importpolicies]]
+Import Policies
+~~~~~~~~~~~~~~~
+
+A specific import policy can be applied on all list or tree root elements. If no policy is defined on such an element
+it is automatically inherited from the parent element.
+
+The policy defines which action will be triggered by an detected change. Possible policies are:
+
+ * INSERT: Only NEW is processed, UPDATED and REMOVED entities are ignored.
+ * INSERT_UPDATE: Only NEW and UPDATED is processed, nothing will be removed.
+ * ENFORCE: Enforce the exact state as defined in the *Cliwix* XML, this includes removal of all entities not
+   defined in the XML.
+
+
+[[anchor-nonexistinglists]]
+Empty vs Non-Existing Lists
+~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+
+Depending on the import policy it can make a huge difference if a list (or a tree) doesn't exist at all or just
+doesn't contain any entries.
+
+* A non existing list or tree (e.g. Users, Organizations, Articles) is just ignored. Nothing will be inserted or added
+  and, most important, no existing entities will be removed. Even if the parent policy is _ENFORCE_.
+* An empty list might lead to the removal of all existing entities (e.g. all users) if the import policy of this element
+  (or the parent one) is _ENFORCE_.
+
+
+[[anchor-expressions]]
+Expressions
+~~~~~~~~~~~
+
+_Cliwix Expressions_ are a portal instance neutral way to refer to (database) IDs. For example, in the Liferay database
+a document URL might appear like within this example article:
+
+[source,xml]
+<StaticArticle articleId="2">
+    <DefaultLocale>en_US</DefaultLocale>
+    <Titles>
+        <Title locale="en_US">Second Article</Title>
+    </Titles>
+    <Contents>
+        <Content locale="en_US">
+          <![CDATA[
+            <p>
+               Have a look at this image: <img src="/documents/12345/22/cat.png" />
+            </p>
+          ]]>
+        </Content>
+    </Contents>
+</StaticArticle>
+
+The image URL consists of the database ID of the group (the repository owner), the database ID of the containing folder
+and the file name itself: _/documents/<groupId>/<folderId>/<filename>_. And the database IDs are of course not portable.
+
+The same image URL using a _Cliwix Expression_ would look like this:
+
+[source,xml]
+<img src="/documents/{{Site('Demo').groupId}}/{{DocumentLibraryFolder(Site('Demo'), '/folder1/folder3').folderId}}/cat.png" />
+
+During import, everything between *{{}}* will be resolved to actual database IDs.
+
+Formally an Expression looks like this:
+
+[source]
+{{<EntityName>>([<EntityNameGroup>('<NaturalIdGroup>'),]'<NaturalId>').<propertyName>}}
+
+The first argument, the reference to a group, is only necessary if the target entity is within a group (e.g. a Site).
+
+Possible property names can be found in the *Cliwix* Java API documentation, see <<anchor-appendix-a, Appendix A>>.
+
+TIP: *Cliwix* tries to replace all database IDs during export automatically. So, you don't have to do it manually.
+If some IDs aren't replace, you might have to configure additional replacements. See <<anchor-portletpreferencesreplacements, Portlet Preferences Replacements>>.
+
+
+Schema Validation
+~~~~~~~~~~~~~~~~~
+
+*Cliwix* uses a XML schema for validation. You can include it like this in your XML files:
+
+[source,xml]
+<LiferayConfig
+    xmlns="http://nonblocking.at/cliwix"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://nonblocking.at/cliwix cliwix_1_1.xsd">
+    <!-- ... -->
+</LiferayConfig>
+
+The current schema can be found within the Java API JAR, see <<anchor-java-api,Parse and Generate Cliwix XML>>.
+You will also find it within all *Cliwix* export archives.
+
+X-Include Support
+~~~~~~~~~~~~~~~~~
+
+*Cliwix* support the _X-Include_ standard to split the XML into multiple smaller files. For details to the standard see:
+http://www.w3.org/TR/xinclude.
+
+To use includes add the namespace _xi_ like this:
+
+[source,xml]
+----
+<LiferayConfig
+
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+
+    >
+----
+
+And then just use it like that:
+[source,xml]
+----
+<Company webID="CliwixDemo">
+    <!-- ... -->
+
+    <xi:include href="users-include.xml" />
+    <UserGroups>
+        <!-- ... -->
+    </UserGroups>
+    <Roles>
+        <!-- ... -->
+    </Roles>
+
+   <!-- ... -->
+----
+
+The content of _users-include.xml_ must have *Users* as root element:
+
+[source,xml]
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Users xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix cliwix_1_1.xsd">
+        <!-- Users -->
+</Users>
+
+
+[[anchor-java-api]]
+Parse and Generate Cliwix XML
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+*Cliwix* comes with a small Java API to create and manipulate the configuration XML.
+
+Setup
+^^^^^
+
+All you need is to create a Java project and add the _cliwix-api-<version>.jar_ to the classpath,
+which can be downloaded via Web Client:
+
+image::WebClient_Download_Java_API.png[scaledwidth=75%]
+
+Parse and manipulate XML
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Below an example how to read an existing XML configuration and manipulate all users:
+
+[source,java]
+----
+File liferayConfigFile = new File("liferay-config-test.xml");
+
+//Load
+LiferayConfig liferayConfig = CliwixXmlSerializer.fromXML(liferayConfigFile);
+
+//Manipulate
+ for (Company company : liferayConfig.getCompanies().getList()) {
+    for (RegularRoleAssignment roleAssignment: company.getRegularRoleAssignments().getList()) {
+        if (roleAssignment.getRoleName().endsWith("MY_SPECIAL_ROLE")) {
+            roleAssignment.getMemberUsers().add(new MemberUser("specialUser"));
+        }
+    }
+}
+
+//Save
+CliwixXmlSerializer.toXML(liferayConfig, new FileOutputStream(liferayConfigFile));
+----
+
+Generate XML
+^^^^^^^^^^^^
+
+Below an simple example how to programmatically generate Cliwix XML:
+
+[source,java]
+----
+File liferayConfigFile = new File("liferay-config-test.xml");
+
+LiferayConfig liferayConfig = new LiferayConfig();
+
+Company company1 = new Company("nonblocking.at", new CompanyConfiguration("localhost", "nonblocking.at", "de_DE", "Europe/Vienna"));
+Companies companies = new Companies(Arrays.asList(company1));
+liferayConfig.setCompanies(companies);
+
+List<Role> roles = Arrays.asList(new Role("ROLE1"), new Role("ROLE2"));
+List<UserGroup> userGroups = Arrays.asList(new UserGroup("GROUP1"), new UserGroup("ROLE2"));
+List<User> users = Arrays.asList(
+        new User("user1", "user1@nonblocking.at", null, "Developer",
+                "John", null, "Hancock", null,
+                GENDER.M, "en_GB", "Europe/Lisbon", "Welcome"),
+        new User("user2", "user2@nonblocking.at", new Password(false, "test"),
+                "Developer", "Mary", null, "Lou", new Date(),
+                GENDER.M, "de_DE", null, "Hallo"));
+company1.setRoles(new Roles(roles));
+company1.setUserGroups(new UserGroups(userGroups));
+company1.setUsers(new Users(users));
+
+Organization org = new Organization("Accounting");
+org.setCountryCode("AT");
+org.setRegionCode("W");
+company1.setOrganizations(new Organizations(Arrays.asList(org)));
+Organization subOrganization = new Organization("Foo");
+org.setSubOrganizations(Arrays.asList(subOrganization));
+
+Site site1 = new Site("My Site", new SiteConfiguration("/mysite", SITE_MEMBERSHIP_TYPE.OPEN), new SiteMembers());
+site1.getSiteMembers().setMemberUsers(Arrays.asList(new MemberUser("user1")));
+site1.getSiteMembers().setMemberUserGroups(Arrays.asList(new MemberUserGroup("GROUP1")));
+
+PageSet site1PublicPages = new PageSet();
+site1PublicPages.setDefaultThemeId("my-custom-theme");
+site1PublicPages.setDefaultColorSchemeId("02");
+site1.setPublicPages(site1PublicPages);
+
+Page rootPage = new Page(PAGE_TYPE.PORTLET, "/home", Arrays.asList(new LocalizedTextContent("en_GB", "Page1")));
+Page page1 = new Page(PAGE_TYPE.PORTLET, "/info", Arrays.asList(new LocalizedTextContent("en_GB", "Page2")));
+page1.setThemeId("test");
+page1.setCss("fooo");
+rootPage.setSubPages(Arrays.asList(page1));
+Page page2 = new Page(PAGE_TYPE.PORTLET, "/a", Arrays.asList(new LocalizedTextContent("en_GB", "Page3")));
+Page page3 = new Page(PAGE_TYPE.PORTLET, "/b", Arrays.asList(new LocalizedTextContent("en_GB", "Page4")));
+page1.setSubPages(Arrays.asList(page2, page3));
+site1PublicPages.setPages(new Pages(Arrays.asList(rootPage)));
+
+//...
+
+//Save
+CliwixXmlSerializer.toXML(liferayConfig, new FileOutputStream(liferayConfigFile));
+----

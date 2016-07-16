@@ -1,0 +1,248 @@
+
+
+Usage
+-----
+
+General
+~~~~~~~
+
+*Cliwix* has two distinct functions: Import and Export. You can build multiple different use cases upon these two functions:
+
+* Export the configuration from one server and import it to another one (transport)
+* Export the configuration, manipulate it and import it again
+* Import manually maintained configuration
+* ...
+
+Export
+^^^^^^
+
+You can define which entities you want to export. For example: You could just export all _User_ and _Role_ data from a server instance.
+
+Import
+^^^^^^
+
+The import compares the given XML data with the current configuration and updates it accordingly. What actually happens depends on:
+
+. If a given piece of data (e.g. an _User_) has been added, removed, changed or is the same.
+. The import policy. See: <<anchor-importpolicies,Import Policies>>.
+. If the simulation mode is active.
+
+For example:
+
+* If an _User_ is no longer present in the given XML data, but the import policy for users is _UPDATE_INSERT_, nothing happens.
+* In the same case, if the import policy is _ENFORCE_, the _User_ is removed from the database. And if simulation mode is not active,
+the change is also committed (at the end of the import).
+
+TIP: The default import policy is _UPDATE_INSERT_, but it can be overridden during import.
+
+
+Reports
+^^^^^^^
+
+Both, the export and the import function write comprehensive HTML reports with all executed steps (e.g. changed data).
+
+
+Web Client
+~~~~~~~~~~
+
+The Web Client is available under http://<your_server>/cliwix.
+
+Login
+^^^^^
+
+The first screen you will see is the login. Enter the credentials of an Liferay _Omni Admin_, that's an admin
+ of the default portal instance (the localhost instance).
+
+image::WebClient_Login.png[scaledwidth=100%]
+
+TIP: The username depends on the authentication method defined in Liferay. It can be the email address or the screen name.
+
+Export Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+To export the WebClentLiferay configuration switch to the _Export_ tab:
+
+image::WebClient_Export.png[scaledwidth=100%]
+
+Select the entities you want to export and hit the _Start Export_ button. When the import is finished, click the
+_Download Export Data_ link in the table.
+
+[[anchor-exportoptions]]
+
+You can filter the companies and sites to export by a comma separated list of webIds and site names.
+To reduce the size of the export you can export only the file data modified within a given day range.
+
+Import Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+To export the Liferay configuration switch to the _Import_ tab:
+
+image::WebClient_Import.png[scaledwidth=100%]
+
+First, select the data source. That can be a directory on the server containing a _liferay-config.xml_ file or a local
+XML file or a ZIP archive (also containing a _liferay-config.xml_). Then hit the _Start Import_ button.
+
+The import options are:
+[options="header"]
+|=======================
+|Option|Description
+|Override root import policy in XML| Override the import policy on the _LiferayConfig_ with a different one
+|Ignore non existing Users/Groups/Organization| Ignore references to users, groups or organizations that don't exist on the target server
+|Skip non existing resource actions | Don't fail if a resource (such as a portlet) does not exist (yet). Useful if you transfer the data
+ to a server which have not all portlets deployed
+|Ignore non existing document references | Ignore references to documents (e.g. in artices) that cannot be resolved
+|Ignore deletion failures | Ignore when an entity cannot be deleted, for example because it is still required by something not managed by *Cliwix*
+|Atomic transaction| Execute the import within a single atomic transaction. This might decrease the performance and corrupt the indexes
+|Simulate Import | Don't commit the database changes. Useful to check in the report what would be changed. Works only with Atomic transaction enabled
+|=======================
+
+
+Command Line Client
+~~~~~~~~~~~~~~~~~~~
+
+Installation
+^^^^^^^^^^^^
+
+Download the ZIP archive with the Command Line Client from http://<your_server>/cliwix/services/downloads/cliClient or click _Download the command line client_ in the *Cliwix* Web interface:
+
+image::WebClient_Download_CLI.png[scaledwidth=75%]
+
+After downloading unzip it and you can use the shell scripts _cliwix_ or _cliwix.bat_ depending on your operation system. To display a list of possible commands execute
+ _./cliwix help_ on Unix/Linux/OS X or _cliwix.bat help_ on Windows:
+
+image::CommandLineClient.png[scaledwidth=100%]
+
+Export Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+The syntax for exports is:
+
+[source]
+ ./cliwix export <property-file> [property-overrides]
+
+Or under windows:
+
+[source]
+cliwix.bat export <property-file> [property-overrides]
+
+Example:
+
+[source]
+ ./cliwix export my-settings.properties --export.folder=my-export-folder
+
+The property file may contain the following export settings:
+
+TIP: You can create a template property file with _./cliwix create-config my-settings.properties_
+
+[options="header"]
+|=======================
+|Property|Description|Default
+|server.cliwix.url | Server URL |
+|server.liferay.omniadmin.username | Liferay omniuser |
+|server.liferay.omniadmin.password | Liferay omniuser password |
+|export.folder | The folder to export the data to | cliwix_export
+|export.extract.zip | Extract the exported ZIP fter transfer | true
+|export.deleteOnServerAfterTransfer | Delete export data on the server after transfer | false
+|export.settings.companyFilter | Company webIds to export. Empty means no filtering |
+|export.settings.exportPortalInstanceConfiguration | Export portal instance configuration such as virtual host | true
+|export.settings.siteFilter | Site names to export. Empty means no filtering |
+|export.settings.exportSiteConfiguration | Export site configuration such as virtual host | true
+|export.settings.exportUsers | Export all users | true
+|export.settings.exportUserGroups | Export all user groups | true
+|export.settings.exportRoles | Export all roles and role assignments | true
+|export.settings.exportOrganizations | Export all organizations | true
+|export.settings.exportPages | Export all pages and page configurations | true
+|export.settings.exportWebContent | Export web content (articles) | true
+|export.settings.exportDocumentLibrary | Export document library files | true
+|export.settings.skipCorruptDocuments | Don't fail on corrupt documents | false
+|export.settings.exportOnlyFileDataLastModifiedWithinDays | To reduce the size of the export you can export only the file data modified within a given day range |
+|=======================
+
+Import Configuration
+^^^^^^^^^^^^^^^^^^^^
+
+The syntax for imports is:
+
+[source]
+ ./cliwix import <property-file> [property-overrides]
+
+Or under windows:
+
+[source]
+cliwix.bat import <property-file> [property-overrides]
+
+Example:
+
+[source]
+ ./cliwix import my-settings.properties --import.report.folder=my-report-folder
+
+The property file may contain the following import settings:
+
+TIP: You can create a template property file with _./cliwix create-config my-settings.properties_
+
+[options="header"]
+|=======================
+|Property|Description|Default
+|server.cliwix.url | Server URL |
+|server.liferay.omniadmin.username | Liferay omniuser |
+|server.liferay.omniadmin.password | Liferay omniuser password |
+|import.input | Path to a ZIP archive, a XML file or a folder containing a XML file and asset data |
+|import.report.folder | The folder to store the import report | cliwix_import_report
+|import.deleteOnServerAfterTransfer | Delete import data on the server after transfer | false
+|import.settings.overrideRootImportPolicy | Override the import policy on the _LiferayConfig_ with a different one |
+|import.settings.ignoreNonExistingUsersGroupsOrgs | Ignore references to users, groups or organizations that don't exist on the target server | false
+|import.settings.ignoreNonExistingResourceActions | Don't fail if a resource (such as a portlet) does not exist (yet). Useful if you transfer the data to a server which have not all portlets deployed | false
+|import.settings.ignoreInvalidDocumentReferences | Ignore references to documents (e.g. in artices) that cannot be resolved | false
+|import.settings.ignoreDeletionFailures | Ignore when an entity cannot be deleted, for example because it is still required by something not managed by *Cliwix* | false
+|import.settings.atomicTransaction| Execute the import within a single atomic transaction. This might decrease the performance and corrupt the indexes | false
+|import.settings.simulationMode | Don't commit the database changes. Useful to check in the report what would be changed. Works only with Atomic transaction enabled | false
+|=======================
+
+TIP: If the _import.input_ property points to a single XML file only this file will be uploaded. So this won't work if you have documents (assets) to import.
+
+Example Script
+^^^^^^^^^^^^^^
+
+Below a simple script for Unix/Linux/OS X that transfers the Liferay configuration data from one server to another:
+
+[source]
+----
+#!/bin/bash
+
+LIFERAY1=http://<my_first_server>/cliwix
+LIFERAY1_USERNAME=<my_admin_user>
+LIFERAY1_PASSWORD=<my_password>
+
+LIFERAY2=http://<my_second_server>/cliwix
+LIFERAY2_USERNAME=<my_admin_user>
+LIFERAY2_PASSWORD=<my_password>
+
+WORKING_DIR=data
+
+echo "Creating output dir"
+mkdir target
+mkdir ${WORKING_DIR}
+
+echo "Downloading Cliwix command line client"
+wget -O client.zip ${LIFERAY1}/services/downloads/cliClient || exit 1
+unzip client.zip -d client || exit 1
+
+echo "Exporting from: ${LIFERAY1}"
+client/cliwix info my-settings.properties --server.cliwix.url=${LIFERAY1} --server.liferay.omniadmin.username=${LIFERAY1_USERNAME} --server.liferay.omniadmin.password=${LIFERAY1_PASSWORD}
+client/cliwix export my-settings.properties --server.cliwix.url=${LIFERAY1} --server.liferay.omniadmin.username=${LIFERAY1_USERNAME} --server.liferay.omniadmin.password=${LIFERAY1_PASSWORD} --export.folder=${WORKING_DIR}/export || exit 1
+
+echo "Importing to: ${LIFERAY2}"
+client/cliwix info my-settings.properties --server.cliwix.url=${LIFERAY2} --server.liferay.omniadmin.username=${LIFERAY2_USERNAME} --server.liferay.omniadmin.password=${LIFERAY2_PASSWORD}
+client/cliwix import my-settings.properties --server.cliwix.url=${LIFERAY2} --server.liferay.omniadmin.username=${LIFERAY2_USERNAME} --server.liferay.omniadmin.password=${LIFERAY2_PASSWORD} --import.input=${WORKING_DIR}/export --import.report.folder=${WORKING_DIR}/import || exit 1
+----
+
+
+Licence
+~~~~~~~
+
+*Cliwix* is released under the see <<anchor-appendix-b, GNU Affero GPL v3>>.
+
+That means you have to make the source code available if you re-distribute a modified
+version of Cliwix. Even if you are a service provider and make the modified version
+available remotely through a computer network
+

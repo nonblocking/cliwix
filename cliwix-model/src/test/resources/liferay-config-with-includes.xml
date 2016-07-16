@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xi="http://www.w3.org/2001/XInclude"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../main/resources/cliwix_1_1.xsd"
+        modelVersion="1.1">
+    <Companies>
+        <Company webID="CliwixDemo">
+            <CompanyConfiguration>
+                <VirtualHost>cliwixdemo.nonblocking.at</VirtualHost>
+                <MailDomain>nonblocking.at</MailDomain>
+                <HomeURL>/web/demo</HomeURL>
+                <AccountName>CliwixDemo</AccountName>
+                <Active>true</Active>
+                <DefaultLocale>de_DE</DefaultLocale>
+                <DefaultTimezone>Europe/Vienna</DefaultTimezone>
+                <DefaultGreeting>Herzlich Willkommen!</DefaultGreeting>
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <Preference>
+                    <Name>default.landing.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>default.logout.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auto.login</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.site.logo</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>terms.of.use.required</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auth.type</Name>
+                    <Value>screenName</Value>
+                </Preference>
+            </PortalPreferences>
+            <xi:include href="users-include.xml" />
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP1">
+
+                </UserGroup>
+                <UserGroup name="DEMO_USER_GROUP2">
+
+                </UserGroup>
+            </UserGroups>
+            <Roles>
+                <Role name="DEMO_ROLE1">
+                    <Titles>
+                        <Title locale="en_US">Demo Role 1</Title>
+                        <Title locale="de_DE">Demo Rolle 1</Title>
+                    </Titles>
+                </Role>
+                <Role name="DEMO_ROLE2" />
+                <Role name="DEMO_ROLE3" />
+            </Roles>
+            <RegularRoleAssignments>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE3">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+            </RegularRoleAssignments>
+            <Sites>
+                <Site name="Guest">
+                    <SiteConfiguration>
+                        <FriendlyURL>/guest</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>OPEN</MembershipType>
+                    </SiteConfiguration>
+                    <PublicPages>
+                        <!-- Defines the login theme! -->
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                    </PublicPages>
+                </Site>
+                <Site name="Demo">
+                    <SiteConfiguration>
+                        <FriendlyURL>/demo</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>PRIVATE</MembershipType>
+
+                    </SiteConfiguration>
+                    <SiteMembers>
+                        <MemberUserGroups>
+                            <UserGroup name="DEMO_USER_GROUP1" />
+                            <UserGroup name="DEMO_USER_GROUP2" />
+                        </MemberUserGroups>
+                    </SiteMembers>
+                    <PublicPages>
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                        <Pages>
+                            <Page url="/home">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Homepage</Name>
+                                    <Name locale="de_DE">Startseite</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_GB">Homepage</Title>
+                                    <Title locale="de_DE">Startseite</Title>
+                                </Titles>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1</Key>
+                                        <Value>31,11</Value> <!-- Gallery Portlet, User Registry Portlet -->
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="Site Member">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                            <Action>ADD_LAYOUT</Action>
+                                            <Action>CONFIGURE_PORTLETS</Action>
+                                            <Action>CUSTOMIZE</Action>
+                                            <Action>DELETE</Action>
+                                            <Action>PERMISSIONS</Action>
+                                            <Action>UPDATE</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <PortletConfigurations>
+                                    <PortletConfiguration portletId="31">
+                                        <PortletPreferences>
+                                            <Preference>
+                                                <Name>showFolderMenu</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>mimeTypes</Name>
+                                                <Value>image/bmp,image/gif,image/jpeg,image/png</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showTabs</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>rootFolderId</Name>
+                                                <Value>0</Value> <!-- Root Folder -->
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showActions</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showFoldersSearch</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                        </PortletPreferences>
+                                        <Permissions>
+                                            <Permission role="Owner">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                    <Action>ADD_TO_PAGE</Action>
+                                                    <Action>CONFIGURATION</Action>
+                                                    <Action>PERMISSIONS</Action>
+                                                </Actions>
+                                            </Permission>
+                                            <Permission role="DEMO_ROLE3">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                        </Permissions>
+                                    </PortletConfiguration>
+                                </PortletConfigurations>
+                            </Page>
+                            <Page url="/products">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Products</Name>
+                                    <Name locale="de_DE">Produkte</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_US">Products</Title>
+                                    <Title locale="de_DE">Produkte</Title>
+                                </Titles>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="DEMO_ROLE1">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                            <Action>ADD_LAYOUT</Action>
+                                            <Action>CONFIGURE_PORTLETS</Action>
+                                            <Action>CUSTOMIZE</Action>
+                                            <Action>DELETE</Action>
+                                            <Action>PERMISSIONS</Action>
+                                            <Action>UPDATE</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <SubPages>
+                                    <xi:include href="page_product1.xml" />
+                                </SubPages>
+                            </Page>                            
+                        </Pages>
+                    </PublicPages>
+                    <PrivatePages>
+                        <DefaultThemeId>classic</DefaultThemeId>
+                        <DefaultColorSchemeId>01</DefaultColorSchemeId>
+                    </PrivatePages>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

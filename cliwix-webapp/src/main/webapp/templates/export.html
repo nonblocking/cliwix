@@ -1,0 +1,137 @@
+<section class="export">
+
+    <form name="exportForm">
+        <div class="row export-settings-panel">
+            <div class="col-sm-4 column1">
+                <div class="form-input">
+                    <input id="exportAllCompanies" type="checkbox" ng-model="exportAllCompanies" ng-change="exportSettings.companyFilter = null"/>
+                    <label for="exportAllCompanies">{{ 'export.exportAllCompanies' | translate }}</label>
+                    <div class="form-input-subitem" ng-show="!exportAllCompanies">
+                        <label for="companyFilter">{{ 'export.companyFilter' | translate }}*</label>
+                        <input type="text" id="companyFilter" name="companyFilter" ng-model="exportSettings.companyFilter" ng-required="!exportAllCompanies" maxlength="512">
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.companyFilter.tooltip' | translate }}"></span>
+                    </div>
+                </div>
+                <div class="form-input">
+                    <input id="exportPortalInstanceConfiguration" type="checkbox" ng-model="exportSettings.exportPortalInstanceConfiguration"/>
+                    <label for="exportPortalInstanceConfiguration">{{ 'export.exportPortalInstanceConfiguration' | translate }}</label>
+                    <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.exportPortalInstanceConfiguration.tooltip' | translate }}"></span>
+                </div>
+                <div class="form-input">
+                    <input id="exportAllSites" type="checkbox" ng-model="exportAllSites" ng-change="exportSettings.siteFilter = null"/>
+                    <label for="exportAllSites">{{ 'export.exportAllSites' | translate }}</label>
+                    <div class="form-input-subitem" ng-show="!exportAllSites">
+                        <label for="companyFilter">{{ 'export.companyFilter' | translate }}*</label>
+                        <input type="text" id="siteFilter" name="siteFilter" ng-model="exportSettings.siteFilter" ng-required="!exportAllSites" maxlength="512">
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.siteFilter.tooltip' | translate }}"></span>
+                    </div>
+                </div>
+                <div class="form-input">
+                    <input id="exportSiteConfiguration" type="checkbox" ng-model="exportSettings.exportSiteConfiguration"/>
+                    <label for="exportSiteConfiguration">{{ 'export.exportSiteConfiguration' | translate }}</label>
+                    <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.exportSiteConfiguration.tooltip' | translate }}"></span>
+                </div>
+                <div class="form-input">
+                    <input id="exportUsers" type="checkbox" ng-model="exportSettings.exportUsers"/>
+                    <label for="exportUsers">{{ 'export.users' | translate }}</label>
+                </div>
+                <div class="form-input">
+                    <input id="exportUserGroups" type="checkbox" ng-model="exportSettings.exportUserGroups"/>
+                    <label for="exportUserGroups">{{ 'export.userGroups' | translate }}</label>
+                </div>
+                <div class="form-input">
+                    <input id="exportRoles" type="checkbox" ng-model="exportSettings.exportRoles"/>
+                    <label for="exportRoles">{{ 'export.roles' | translate }}</label>
+                </div>
+                <div class="form-input">
+                    <input id="exportOrganizations" type="checkbox" ng-model="exportSettings.exportOrganizations"/>
+                    <label for="exportOrganizations">{{ 'export.organizations' | translate }}</label>
+                </div>
+            </div>
+            <div class="col-sm-4 column2">
+                <div class="form-input">
+                    <input id="exportPages" type="checkbox" ng-model="exportSettings.exportPages"/>
+                    <label for="exportPages">{{ 'export.pages' | translate }}</label>
+                </div>
+                <div class="form-input">
+                    <input id="exportWebContent" type="checkbox" ng-model="exportSettings.exportWebContent"/>
+                    <label for="exportWebContent">{{ 'export.webContent' | translate }}</label>
+                </div>
+                <div class="form-input">
+                    <input id="exportDocumentLibrary" type="checkbox" ng-model="exportSettings.exportDocumentLibrary"/>
+                    <label for="exportDocumentLibrary">{{ 'export.documentLibrary' | translate }}</label>
+                    <div class="form-input-subitem" ng-show="exportSettings.exportDocumentLibrary">
+                        <input id="skipCorruptDocuments" type="checkbox" ng-model="exportSettings.skipCorruptDocuments" ng-disabled="!exportSettings.exportDocumentLibrary"/>
+                        <label for="skipCorruptDocuments" ng-class="{disabled: !exportSettings.exportDocumentLibrary}">
+                            {{ 'export.skipCorruptDocuments' | translate }}
+                            <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.skipCorruptDocuments.tooltip' | translate }}"></span>
+                        </label>
+                    </div>
+                    <div class="form-input-subitem" ng-show="exportSettings.exportDocumentLibrary">
+                        <input id="exportOnlyFileDataLastModifiedWithinDaysEnabled" type="checkbox" ng-model="exportOnlyFileDataLastModifiedWithinDaysEnabled" ng-change="exportSettings.exportOnlyFileDataLastModifiedWithinDays = null"/>
+                        <span>{{ 'export.exportOnlyFileDataLastModifiedWithinDays1' | translate }}</span>
+                        <input type="number" id="exportOnlyFileDataLastModifiedWithinDays" min="1" name="exportOnlyFileDataLastModifiedWithinDays" ng-required="exportOnlyFileDataLastModifiedWithinDaysEnabled"
+                               ng-model="exportSettings.exportOnlyFileDataLastModifiedWithinDays" style="width:60px" maxlength="3" ng-disabled="!exportOnlyFileDataLastModifiedWithinDaysEnabled">
+                        <span>{{ 'export.exportOnlyFileDataLastModifiedWithinDays2' | translate }}</span>
+                        <span class="fa fa-info-circle" tooltip-placement="right" tooltip="{{ 'export.exportOnlyFileDataLastModifiedWithinDays.tooltip' | translate }}"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 column3">
+                <button class="btn btn-default button-export" ng-click="startExport()" ng-disabled="exportForm.$invalid || exportButtonDisabled">{{ 'export.start' | translate }}</button>
+            </div>
+        </div>
+    </form>
+
+    <div id="export-list" ng-show="exportList.length > 0">
+        <div>
+            <table class="table import-export-list">
+                <tr>
+                    <th>{{ 'timestamp' | translate}}</th>
+                    <th>{{ 'duration' | translate}}</th>
+                    <th>{{ 'user' | translate}}</th>
+                    <th>{{ 'client' | translate}}</th>
+                    <th>{{ 'client.ip' | translate}}</th>
+                    <th>{{ 'state' | translate}}</th>
+                    <th></th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr ng-repeat="export in exportList" ng-class-even="'even'">
+                    <td>{{export.id | i18nDate }}</td>
+                    <td>{{export.durationMs | minutesAndSeconds }}</td>
+                    <td>{{export.user}}</td>
+                    <td>{{export.client}}</td>
+                    <td>{{export.clientIP}}</td>
+                    <td ng-class="stateToClass(export.state)">{{export.state | translate}}</td>
+                    <td>
+                        <span ng-show="export.reportExists">
+                            <a href="services/exports/{{export.id}}/report" target="_blank" class="icon-report">{{ 'download.report' | translate }}</a>
+                        </span>
+                         <span ng-show="export.state == 'failed' && !export.reportExists && export.errorMessage != null">
+                            <span class="fa fa-warning" tooltip-placement="top" tooltip="{{export.errorMessage}}"></span>
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-show="export.state == 'success'">
+                            <a href="services/exports/{{export.id}}/zip" class="icon-download">{{ 'download.export.data' | translate }}</a>
+                        </span>
+                    </td>
+                    <td>
+                         <span class="export-delete" ng-show="export.state == 'success' || export.state == 'failed'">
+                            <a href="" ng-click="deleteExport(export.id)" class="icon-delete">{{ 'delete' | translate }}</a>
+                        </span>
+                    </td>
+                </tr>
+            </table>
+            <div class="pagination-wrapper">
+                <pagination total-items="exportListTotal" max-size="10"
+                            ng-model="exportListCurrentPage" ng-change="pageChanged()"
+                            previous-text="{{ 'page.previous' | translate }}" next-text="{{ 'page.next' | translate }}">
+                </pagination>
+            </div>
+         </div>
+
+    </div>
+
+</section>

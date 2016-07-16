@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd"
+        modelVersion="1.1"
+        sourceVersion="6.1.2">
+    <Companies policy="ENFORCE">
+        <Company webID="CliwixDemo">
+            <Sites>
+                <Site name="Guest">
+                </Site>
+                <Site name="Demo2">
+                </Site>
+                <Site name="Demo">
+                    <SiteContent>
+                        <DocumentLibrary fileDataFolder="media/demoSite2">
+                            <Permissions>
+                                <Permission role="DEMO_ROLE1">
+                                    <Actions>
+                                        <Action>VIEW</Action>
+                                    </Actions>
+                                </Permission>
+                            </Permissions>
+                            <Entries>
+                                <Folder name="folder1">
+                                    <SubEntries>
+                                        <Folder name="folder3">
+                                            <SubEntries>
+                                                <File name="Nonblocking Logo">
+                                                    <FileDataName>nonblocking.png</FileDataName>
+                                                    <Description>nonblocking.at gmbh logo</Description>
+                                                    <Permissions>
+                                                        <Permission role="DEMO_ROLE1">
+                                                            <Actions>
+                                                                <Action>VIEW</Action>
+                                                            </Actions>
+                                                        </Permission>
+                                                    </Permissions>
+                                                    <AssetTags>
+                                                        <AssetTag>test22</AssetTag>
+                                                        <AssetTag>test2</AssetTag>
+                                                    </AssetTags>
+                                                </File>
+                                            </SubEntries>
+                                        </Folder>
+                                    </SubEntries>
+                                </Folder>
+                                <Folder name="folder2">
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>VIEW</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                    <SubEntries>
+                                        <File name="text2">
+                                            <FileDataName>text2.txt</FileDataName>
+                                        </File>
+                                    </SubEntries>
+                                </Folder>
+                                <File name="My new file.txt">
+                                    <FileDataName>newFile.txt</FileDataName>
+                                </File>
+                            </Entries>
+                        </DocumentLibrary>
+                    </SiteContent>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

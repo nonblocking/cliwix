@@ -1,0 +1,453 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<LiferayConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://nonblocking.at/cliwix"
+               modelVersion="1.1"
+               xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd">
+    <Companies policy="ENFORCE">
+        <Company webID="CliwixDemo">
+            <CompanyConfiguration>
+                <VirtualHost>cliwixdemo.nonblocking.at</VirtualHost>
+                <MailDomain>nonblocking.at</MailDomain>
+                <HomeURL>/web/demo</HomeURL>
+                <AccountName>CliwixDemo</AccountName>
+                <Active>true</Active>
+                <DefaultLocale>de_DE</DefaultLocale>
+                <DefaultTimezone>Europe/Vienna</DefaultTimezone>
+                <DefaultGreeting>Herzlich Willkommen!</DefaultGreeting>
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <Preference>
+                    <Name>default.landing.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>default.logout.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auto.login</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.site.logo</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>terms.of.use.required</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auth.type</Name>
+                    <Value>screenName</Value>
+                </Preference>
+            </PortalPreferences>
+            <Users>
+                <User screenName="demouser">
+                    <EmailAddress>demoUser@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Gender>F</Gender>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo User!</Greeting>
+                </User>
+                <User screenName="demoadmin">
+                    <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>Administrator</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Gender>F</Gender>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo Admin!</Greeting>
+                </User>
+            </Users>
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP1">
+                    <MemberUsers>
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </UserGroup>
+                <UserGroup name="DEMO_USER_GROUP2">
+                </UserGroup>
+            </UserGroups>
+            <Roles>
+                <Role name="Power User">
+                    <Descriptions>
+                        <Description locale="en_US">Power Users have their own personal site.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Organization Owner">
+                    <Descriptions>
+                        <Description locale="en_US">Organization Owners are super users of their organization and can assign organization roles to users.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Member">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">All users who belong to a site have this role within that site.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Owner">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Site Owners are super users of their site and can assign site roles to users.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <Permissions />
+                </Role>
+                <Role name="DEMO_ROLE1">
+                    <Titles>
+                        <Title locale="en_US">Demo Role 1</Title>
+                        <Title locale="de_DE">Demo Rolle 1</Title>
+                    </Titles>
+                </Role>
+                <Role name="Organization User">
+                    <Type>ORGANIZATION</Type>
+                    <Descriptions>
+                        <Description locale="en_US">All users who belong to an organization have this role within that organization.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Administrator">
+                    <Descriptions>
+                        <Description locale="en_US">Administrators are super users who can do anything.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="User">
+                    <Descriptions>
+                        <Description locale="en_US">Authenticated users should be assigned this role.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Administrator">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Site Administrators are super users of their site but cannot make other users into Site Administrators.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Guest">
+                    <Descriptions>
+                        <Description locale="en_US">Unauthenticated users always have this role.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Organization Administrator">
+                    <Type>ORGANIZATION</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Organization Administrators are super users of their organization but cannot make other users into Organization Administrators.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Owner">
+                    <Descriptions>
+                        <Description locale="en_US">This is an implied role with respect to the objects users create.</Description>
+                    </Descriptions>
+                </Role>
+            </Roles>
+            <Organizations>
+            </Organizations>
+            <RegularRoleAssignments>
+                <Role name="Administrator">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </Role>
+                <Role name="Power User">
+                    <MemberUsers>
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </Role>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                    <MemberOrganizations>
+                        <Organization name="ORG1" />
+                    </MemberOrganizations>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+            </RegularRoleAssignments>
+            <Sites>
+                <Site name="Guest">
+                    <SiteConfiguration>
+                        <FriendlyURL>/guest</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>OPEN</MembershipType>
+                    </SiteConfiguration>
+                    <PublicPages>
+                        <!-- Defines the login theme! -->
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                    </PublicPages>
+                </Site>
+                <Site name="Demo">
+                    <SiteConfiguration>
+                        <FriendlyURL>/demo</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>PRIVATE</MembershipType>
+                    </SiteConfiguration>
+                    <SiteMembers>
+                        <MemberUserGroups>
+                            <UserGroup name="DEMO_USER_GROUP1" />
+                            <UserGroup name="DEMO_USER_GROUP2" />
+                        </MemberUserGroups>
+                        <MemberUsers>
+                            <User screenName="demouser" />
+                        </MemberUsers>
+                    </SiteMembers>
+                    <SiteRoleAssignments>
+                        <Role name="Site Administrator">
+                            <MemberUsers>
+                                <User screenName="demouser" />
+                            </MemberUsers>
+                        </Role>
+                    </SiteRoleAssignments>
+                    <SiteContent>
+                        <DocumentLibrary fileDataFolder="media/demoSite" mergeFromFileSystem="false">
+                            <Permissions>
+                                <Permission role="DEMO_ROLE1">
+                                    <Actions>
+                                        <Action>VIEW</Action>
+                                    </Actions>
+                                </Permission>
+                            </Permissions>
+                            <Entries>
+                                <Folder name="folder1">
+                                    <SubEntries>
+
+                                    </SubEntries>
+                                </Folder>
+                                <Folder name="folder2">
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>VIEW</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                </Folder>
+                                <File name="Humpty Dumpty" >
+                                    <FileDataName>text1.txt</FileDataName>
+                                </File>
+                            </Entries>
+                        </DocumentLibrary>
+                        <WebContent>
+                            <Structures />
+                            <Templates />
+                            <Articles>
+                                <StaticArticle articleId="2">
+                                    <DefaultLocale>de_DE</DefaultLocale>
+                                    <Type>general</Type>
+                                    <DisplayDate>2014-07-15T12:18:00Z</DisplayDate>
+                                    <Titles>
+                                        <Title locale="en_US">Second Article</Title>
+                                        <Title locale="de_DE">Zweiter Artikel</Title>
+                                    </Titles>
+                                    <Contents>
+                                        <Content locale="de_DE"><![CDATA[<p>Und hier der <em>prächtige</em> Inhalt mit einem Image: <img title="Cool Logo" src="/documents/{{Site('Demo').groupId}}/{{DocumentLibraryFolder(Site('Demo'), '/').folderId}}/Humpty Dumpty" /> </p>]]></Content>
+                                    </Contents>
+                                    <AssetTags>
+                                        <AssetTag>test2</AssetTag>
+                                        <AssetTag>test3</AssetTag>
+                                    </AssetTags>
+                                </StaticArticle>
+                            </Articles>
+                        </WebContent>
+                    </SiteContent>
+                    <PublicPages>
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                        <Pages>
+                            <Page url="/home">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Homepage</Name>
+                                    <Name locale="de_DE">Startseite</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_US">Homepage</Title>
+                                    <Title locale="de_DE">Startseite</Title>
+                                </Titles>
+                                <Hidden>false</Hidden>
+                                <ThemeId>foobar</ThemeId>
+                                <CSS>#test { color: red; }</CSS>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1</Key>
+                                        <Value>31,11#1</Value>
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="Site Member">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <PortletConfigurations>
+                                    <PortletConfiguration portletId="11#1">
+                                        <PortletPreferences>
+                                            <Preference>
+                                                <Name>foo</Name>
+                                                <Value>bar</Value>
+                                            </Preference>
+                                        </PortletPreferences>
+                                    </PortletConfiguration>
+                                    <PortletConfiguration portletId="31">
+                                        <PortletPreferences>
+                                            <Preference>
+                                                <Name>showFolderMenu</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>mimeTypes</Name>
+                                                <Value>image/bmp,image/gif,image/jpeg,image/png</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showTabs</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>rootFolderId</Name>
+                                                <Value>0</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showActions</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showFoldersSearch</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>groupId</Name>
+                                                <Value>{{Site('Demo').groupId}}</Value>
+                                            </Preference>
+                                        </PortletPreferences>
+                                        <Permissions>
+                                            <Permission role="Owner">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                            <Permission role="DEMO_ROLE2">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                        </Permissions>
+                                    </PortletConfiguration>
+                                </PortletConfigurations>
+                            </Page>
+                            <Page url="/products">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Products</Name>
+                                    <Name locale="de_DE">Produkte</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_US">Products</Title>
+                                    <Title locale="de_DE">Produkte</Title>
+                                </Titles>
+                                <Descriptions>
+                                    <Description locale="en_US">Products</Description>
+                                    <Description locale="de_DE">Produkte</Description>
+                                </Descriptions>
+                                <KeywordsList>
+                                    <Keywords locale="en_US">Products</Keywords>
+                                    <Keywords locale="de_DE">Produkte</Keywords>
+                                </KeywordsList>
+                                <Hidden>false</Hidden>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="DEMO_ROLE1">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <SubPages>
+                                    <Page url="/product2">
+                                        <PageType>PORTLET</PageType>
+                                        <Names>
+                                            <Name locale="en_US">Domestic Home</Name>
+                                            <Name locale="de_DE">Sicher Wohnen</Name>
+                                        </Names>
+                                        <Titles>
+                                            <Title locale="en_US">Domestic Home</Title>
+                                            <Title locale="de_DE">Sicher Wohnen</Title>
+                                        </Titles>
+                                        <PageSettings>
+                                            <PageSetting>
+                                                <Key>layout-template-id</Key>
+                                                <Value>1_column</Value>
+                                            </PageSetting>
+                                            <PageSetting>
+                                                <Key>column-1-customizable</Key>
+                                                <Value>false</Value>
+                                            </PageSetting>
+                                            <PageSetting>
+                                                <Key>column-1</Key>
+                                                <Value>nonblocking_at_portlet1</Value>
+                                            </PageSetting>
+                                        </PageSettings>
+                                        <Permissions>
+                                            <Permission role="DEMO_ROLE1">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                            <Permission role="Owner">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                        </Permissions>
+                                    </Page>
+                                </SubPages>
+                            </Page>
+                            <Page url="/urlPageTest">
+                                <PageType>URL</PageType>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>url</Key>
+                                        <Value>/documents/{{Site('Demo').groupId}}/{{DocumentLibraryFolder(Site('Demo'), '/').folderId}}/Humpty Dumpty/abcdefghijklm?t=1234567890</Value>
+                                    </PageSetting>
+                                </PageSettings>
+                            </Page>
+                        </Pages>
+                    </PublicPages>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

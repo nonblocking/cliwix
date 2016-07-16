@@ -1,0 +1,11 @@
+
+[preface]
+Introduction
+------------
+
+*Cliwix* allows you to import and export Liferay configuration and data in human readable XML format.
+
+This document describes how to install, configure and use *Cliwix*. The target audience are Administrators who want to use *Cliwix* to configure Liferay and Software Developers who
+want to define and ship a Liferay configuration defined in XML.
+
+

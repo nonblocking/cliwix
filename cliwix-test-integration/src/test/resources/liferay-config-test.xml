@@ -1,0 +1,603 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<LiferayConfig
+        xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd"
+        modelVersion="1.1"
+        sourceVersion="6.1.2">
+    <Companies policy="UPDATE_INSERT">
+        <Company webID="CliwixDemo">
+            <CompanyConfiguration>
+                <VirtualHost>cliwixdemo.nonblocking.at</VirtualHost>
+                <MailDomain>nonblocking.at</MailDomain>
+                <HomeURL>/web/demo</HomeURL>
+                <AccountName>CliwixDemo</AccountName>
+                <Active>true</Active>
+                <DefaultLocale>de_DE</DefaultLocale>
+                <DefaultTimezone>Europe/Vienna</DefaultTimezone>
+                <DefaultGreeting>Herzlich Willkommen!</DefaultGreeting>
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <Preference>
+                    <Name>default.landing.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>default.logout.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auto.login</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.site.logo</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>terms.of.use.required</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auth.type</Name>
+                    <Value>screenName</Value>
+                </Preference>
+            </PortalPreferences>
+            <Users>
+                <User screenName="demoadmin">
+                    <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>Administrator</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo Admin!</Greeting>
+                </User>
+                <User screenName="demouser">
+                    <EmailAddress>demoUser@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo User!</Greeting>
+                </User>
+                <User screenName="demouser2">
+                    <EmailAddress>demoUser2@nonblocking.at</EmailAddress>
+                    <FirstName>Demo2</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Language>en_US</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Welcome Demo User 2!</Greeting>
+                </User>
+            </Users>
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP1">
+                    <MemberUsers>
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </UserGroup>
+                <UserGroup name="DEMO_USER_GROUP2">
+                    <MemberUsers>
+                        <User screenName="demouser2" />
+                    </MemberUsers>
+                </UserGroup>
+            </UserGroups>
+            <Roles>
+                <Role name="DEMO_ROLE1">
+                    <Titles>
+                        <Title locale="en_US">Demo Role 1</Title>
+                        <Title locale="de_DE">Demo Rolle 1</Title>
+                    </Titles>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <Permissions>
+                        <Permission resourceName="com.liferay.portal.model.Group">
+                            <Actions>
+                                <Action>ADD_LAYOUT</Action>
+                            </Actions>
+                        </Permission>
+                    </Permissions>
+                </Role>
+                <Role name="DEMO_ROLE3">
+                </Role>
+            </Roles>
+            <Organizations>
+                <Organization name="ORG1">
+                    <OrganizationRoleAssignments>
+                        <Role name="Organization Administrator">
+                            <MemberUsers>
+                                <User screenName="demouser2" />
+                            </MemberUsers>
+                        </Role>
+                    </OrganizationRoleAssignments>
+                    <SubOrganizations>
+                        <Organization name="ORG2">
+                            <CountryCode>DE</CountryCode>
+                        </Organization>
+                    </SubOrganizations>
+                </Organization>
+            </Organizations>
+            <RegularRoleAssignments>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                    <MemberOrganizations>
+                        <Organization name="ORG1" />
+                    </MemberOrganizations>
+                </Role>
+                <Role name="DEMO_ROLE3">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                        <UserGroup name="DEMO_USER_GROUP2" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="Administrator">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                    </MemberUsers>
+                </Role>
+                <Role name="Power User">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                        <User screenName="demouser" />
+                        <User screenName="demouser2" />
+                    </MemberUsers>
+                </Role>
+            </RegularRoleAssignments>
+            <Sites>
+                <Site name="Guest">
+                    <SiteConfiguration>
+                        <FriendlyURL>/guest</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>OPEN</MembershipType>
+                    </SiteConfiguration>
+                    <PublicPages>
+                        <!-- Defines the login theme! -->
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                    </PublicPages>
+                </Site>
+                <Site name="Demo2">
+                    <SiteConfiguration>
+                        <FriendlyURL>/demo2</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>OPEN</MembershipType>
+                    </SiteConfiguration>
+                    <SiteMembers>
+                        <MemberOrganizations>
+                            <Organization name="ORG1" />
+                        </MemberOrganizations>
+                    </SiteMembers>
+                    <PublicPages>
+                        <!-- Defines the login theme! -->
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                    </PublicPages>
+                </Site>
+                <Site name="Demo">
+                    <SiteConfiguration>
+                        <FriendlyURL>/demo</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>PRIVATE</MembershipType>
+                    </SiteConfiguration>
+                    <SiteMembers>
+                        <MemberUserGroups>
+                            <UserGroup name="DEMO_USER_GROUP1" />
+                            <UserGroup name="DEMO_USER_GROUP2" />
+                        </MemberUserGroups>
+                    </SiteMembers>
+                    <SiteRoleAssignments>
+                        <Role name="Site Administrator">
+                            <MemberUsers>
+                                <User screenName="demouser" />
+                            </MemberUsers>
+                        </Role>
+                    </SiteRoleAssignments>
+                    <SiteContent>
+                        <DocumentLibrary fileDataFolder="media/demoSite" mergeFromFileSystem="false">
+                            <Permissions>
+                                <Permission role="DEMO_ROLE1">
+                                    <Actions>
+                                        <Action>VIEW</Action>
+                                    </Actions>
+                                </Permission>
+                            </Permissions>
+                            <Entries>
+                                <Folder name="folder1">
+                                    <SubEntries>
+                                        <Folder name="folder3">
+                                            <SubEntries>
+                                                <File name="Nonblocking Logo">
+                                                    <FileDataName>nonblocking.png</FileDataName>
+                                                    <Description>nonblocking.at gmbh logo</Description>
+                                                    <Permissions>
+                                                        <Permission role="DEMO_ROLE1">
+                                                            <Actions>
+                                                                <Action>VIEW</Action>
+                                                            </Actions>
+                                                        </Permission>
+                                                    </Permissions>
+                                                    <AssetTags>
+                                                        <AssetTag>test1</AssetTag>
+                                                        <AssetTag>test2</AssetTag>
+                                                    </AssetTags>
+                                                </File>
+                                            </SubEntries>
+                                        </Folder>
+                                    </SubEntries>
+                                </Folder>
+                                <Folder name="folder2">
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>VIEW</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                    <SubEntries>
+                                        <File name="text2">
+                                            <FileDataName>text2.txt</FileDataName>
+                                        </File>
+                                    </SubEntries>
+                                </Folder>
+                                <Folder name="empty">
+
+                                </Folder>
+                                <File name="Humpty Dumpty.txt">
+                                    <FileDataName>text1.txt</FileDataName>
+                                </File>
+                            </Entries>
+                        </DocumentLibrary>
+                        <WebContent>
+                            <Structures>
+                                <Structure structureId="MY-FIRST-STRUCTURE">
+                                    <Names>
+                                        <Name locale="en_US">Structure 1</Name>
+                                        <Name locale="de_DE">Struktur 1</Name>
+                                    </Names>
+                                    <DynamicElements>
+                                        <![CDATA[
+                                    <dynamic-element name="page-title" type="text" index-type="" repeatable="false">
+                                        <meta-data>
+                                            <entry name="displayAsTooltip"><![CDATA[true]]]]><![CDATA[></entry>
+                                            <entry name="required"><![CDATA[false]]]]><![CDATA[></entry>
+                                            <entry name="instructions"><![CDATA[]]]]><![CDATA[></entry>
+                                            <entry name="label"><![CDATA[Sub Title]]]]><![CDATA[></entry>
+                                            <entry name="predefinedValue"><![CDATA[]]]]><![CDATA[></entry>
+                                        </meta-data>
+                                    </dynamic-element>
+                                    <dynamic-element name="links" type="text" index-type="" repeatable="true">
+                                        <meta-data>
+                                            <entry name="displayAsTooltip"><![CDATA[false]]]]><![CDATA[></entry>
+                                            <entry name="required"><![CDATA[false]]]]><![CDATA[></entry>
+                                            <entry name="instructions"><![CDATA[]]]]><![CDATA[></entry>
+                                            <entry name="label"><![CDATA[Link Title]]]]><![CDATA[></entry>
+                                            <entry name="predefinedValue"><![CDATA[]]]]><![CDATA[></entry>
+                                        </meta-data>
+                                        <dynamic-element name="bg-image" type="document_library" index-type="" repeatable="false">
+                                            <meta-data>
+                                                <entry name="displayAsTooltip"><![CDATA[true]]]]><![CDATA[></entry>
+                                                <entry name="required"><![CDATA[false]]]]><![CDATA[></entry>
+                                                <entry name="instructions"><![CDATA[]]]]><![CDATA[></entry>
+                                                <entry name="label"><![CDATA[Background Image]]]]><![CDATA[></entry>
+                                                <entry name="predefinedValue"><![CDATA[]]]]><![CDATA[></entry>
+                                            </meta-data>
+                                        </dynamic-element>
+                                        <dynamic-element name="action-link-url" type="text" index-type="" repeatable="false">
+                                            <meta-data>
+                                                <entry name="displayAsTooltip"><![CDATA[false]]]]><![CDATA[></entry>
+                                                <entry name="required"><![CDATA[false]]]]><![CDATA[></entry>
+                                                <entry name="instructions"><![CDATA[]]]]><![CDATA[></entry>
+                                                <entry name="label"><![CDATA[Call to Action URL]]]]><![CDATA[></entry>
+                                                <entry name="predefinedValue"><![CDATA[]]]]><![CDATA[></entry>
+                                            </meta-data>
+                                        </dynamic-element>
+                                    </dynamic-element>
+                                     ]]>
+                                    </DynamicElements>
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>View</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                    <SubStructures>
+                                        <Structure structureId="SUBSTRUCTURE">
+                                            <Names>
+                                                <Name locale="en_US">Sub Structure 1</Name>
+                                                <Name locale="de_DE">Unterstruktur 1</Name>
+                                            </Names>
+                                            <DynamicElements><![CDATA[<dynamic-element name="test2" type="boolean" index-type="" repeatable="false"/>]]></DynamicElements>
+                                        </Structure>
+                                    </SubStructures>
+                                </Structure>
+                            </Structures>
+                            <Templates>
+                                <Template templateId="MY-FIRST-TEMPLATE">
+                                    <StructureId>MY-FIRST-STRUCTURE</StructureId>
+                                    <Names>
+                                        <Name locale="en_US">Template 1</Name>
+                                        <Name locale="de_DE">Template 1</Name>
+                                    </Names>
+                                    <Language>FTL</Language>
+                                    <Script><![CDATA[<p>Hello ${name}</p>]]></Script>
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>View</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                </Template>
+                            </Templates>
+                            <Articles>
+                                <StaticArticle articleId="1">
+                                    <DefaultLocale>en_US</DefaultLocale>
+                                    <Titles>
+                                        <Title locale="en_US">Test</Title>
+                                    </Titles>
+                                    <Contents>
+                                        <Content locale="en_US">This is the content!</Content>
+                                    </Contents>
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>View</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                </StaticArticle>
+                                <StaticArticle articleId="2">
+                                    <DefaultLocale>de_DE</DefaultLocale>
+                                    <Titles>
+                                        <Title locale="de_DE">Zweiter Artikel</Title>
+                                        <Title locale="en_US">Second Article</Title>
+                                    </Titles>
+                                    <Contents>
+                                        <Content locale="de_DE"><![CDATA[<p>Und hier der <em>prächtige</em> Inhalt mit einem Image: <img src="/documents/{{Site('Demo').groupId}}/{{DocumentLibraryFolder(Site('Demo'), '/folder1/folder3').folderId}}/nonblocking.png" /> </p>]]></Content>
+                                    </Contents>
+                                    <AssetTags>
+                                        <AssetTag>Test2</AssetTag>
+                                        <AssetTag>Test3</AssetTag>
+                                    </AssetTags>
+                                </StaticArticle>
+                                <TemplateDrivenArticle articleId="FOO">
+                                    <DefaultLocale>en_US</DefaultLocale>
+                                    <Type>general</Type>
+                                    <Titles>
+                                        <Title locale="en_US">My third article</Title>
+                                    </Titles>
+                                    <StructureId>MY-FIRST-STRUCTURE</StructureId>
+                                    <TemplateId>MY-FIRST-TEMPLATE</TemplateId>
+                                    <DynamicElements><![CDATA[
+                                    <dynamic-element name="sdf" index="0" type="boolean" index-type="keyword">
+                                        <dynamic-content language-id="en_US"><![CDATA[true]]]]><![CDATA[></dynamic-content>
+                                    </dynamic-element>]]>
+                                    </DynamicElements>
+                                    <Permissions>
+                                        <Permission role="DEMO_ROLE1">
+                                            <Actions>
+                                                <Action>View</Action>
+                                            </Actions>
+                                        </Permission>
+                                    </Permissions>
+                                </TemplateDrivenArticle>
+                            </Articles>
+                        </WebContent>
+                    </SiteContent>
+                    <PublicPages>
+                        <DefaultThemeId>nonblocking_at_theme2</DefaultThemeId>
+                        <CSS>#test { color: red; }</CSS>
+                        <Pages>
+                            <Page url="/home">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Homepage</Name>
+                                    <Name locale="de_DE">Startseite</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_US">Homepage</Title>
+                                    <Title locale="de_DE">Startseite</Title>
+                                </Titles>
+                                <ThemeId>foobar</ThemeId>
+                                <CSS>#test { color: red; }</CSS>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1</Key>
+                                        <Value>31,11#1</Value> <!-- Gallery Portlet, User Registry Portlet -->
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="Site Member">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                            <Action>ADD_LAYOUT</Action>
+                                            <Action>CONFIGURE_PORTLETS</Action>
+                                            <Action>CUSTOMIZE</Action>
+                                            <Action>DELETE</Action>
+                                            <Action>PERMISSIONS</Action>
+                                            <Action>UPDATE</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <PortletConfigurations>
+                                    <PortletConfiguration portletId="11#1">
+                                        <PortletPreferences>
+                                            <Preference>
+                                                <Name>foo</Name>
+                                                <Value>bar</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>classTypeIdsDLFileEntryAssetRendererFactory</Name>
+                                                <Value>{{DocumentLibraryFileType(GROUP_ID_ZERO, 'Basic Document').fileEntryTypeId}},{{DocumentLibraryFileType(Company('CliwixDemo'),'Contract').fileEntryTypeId}},{{DocumentLibraryFileType(Company('CliwixDemo'),'Marketing Banner').fileEntryTypeId}}</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>classNameId</Name>
+                                                <Value>{{ClassName('com.liferay.portlet.documentlibrary.model.DLFileEntry').classNameId}}{{ClassName('com.liferay.portlet.blogs.model.BlogsEntry').classNameId}}</Value>
+                                            </Preference>
+                                        </PortletPreferences>
+                                    </PortletConfiguration>
+                                    <PortletConfiguration portletId="31">
+                                        <PortletPreferences>
+                                            <Preference>
+                                                <Name>showFolderMenu</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>mimeTypes</Name>
+                                                <Value>image/bmp,image/gif,image/jpeg,image/png</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showTabs</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>rootFolderId</Name>
+                                                <Value>0</Value> <!-- Root Folder -->
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showActions</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>showFoldersSearch</Name>
+                                                <Value>false</Value>
+                                            </Preference>
+                                            <Preference>
+                                                <Name>groupId</Name>
+                                                <Value>{{Site('Demo').groupId}}</Value>
+                                            </Preference>
+                                        </PortletPreferences>
+                                        <Permissions>
+                                            <Permission role="Owner">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                    <Action>ADD_TO_PAGE</Action>
+                                                    <Action>CONFIGURATION</Action>
+                                                    <Action>PERMISSIONS</Action>
+                                                </Actions>
+                                            </Permission>
+                                            <Permission role="DEMO_ROLE3">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                        </Permissions>
+                                    </PortletConfiguration>
+                                </PortletConfigurations>
+                            </Page>
+                            <Page url="/products">
+                                <PageType>PORTLET</PageType>
+                                <Names>
+                                    <Name locale="en_US">Products</Name>
+                                    <Name locale="de_DE">Produkte</Name>
+                                </Names>
+                                <Titles>
+                                    <Title locale="en_US">Products</Title>
+                                    <Title locale="de_DE">Produkte</Title>
+                                </Titles>
+                                <PageSettings>
+                                    <PageSetting>
+                                        <Key>layout-template-id</Key>
+                                        <Value>1_column</Value>
+                                    </PageSetting>
+                                    <PageSetting>
+                                        <Key>column-1-customizable</Key>
+                                        <Value>false</Value>
+                                    </PageSetting>
+                                </PageSettings>
+                                <Permissions>
+                                    <Permission role="DEMO_ROLE1">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                        </Actions>
+                                    </Permission>
+                                    <Permission role="Owner">
+                                        <Actions>
+                                            <Action>VIEW</Action>
+                                            <Action>ADD_LAYOUT</Action>
+                                            <Action>CONFIGURE_PORTLETS</Action>
+                                            <Action>CUSTOMIZE</Action>
+                                            <Action>DELETE</Action>
+                                            <Action>PERMISSIONS</Action>
+                                            <Action>UPDATE</Action>
+                                        </Actions>
+                                    </Permission>
+                                </Permissions>
+                                <SubPages>
+                                    <Page url="/product1/foo">
+                                        <PageType>PORTLET</PageType>
+                                        <Names>
+                                            <Name locale="en_US">Domestic Home</Name>
+                                            <Name locale="de_DE">Sicher Wohnen</Name>
+                                        </Names>
+                                        <Titles>
+                                            <Title locale="en_US">Domestic Home</Title>
+                                            <Title locale="de_DE">Sicher Wohnen</Title>
+                                        </Titles>
+                                        <PageSettings>
+                                            <PageSetting>
+                                                <Key>layout-template-id</Key>
+                                                <Value>1_column</Value>
+                                            </PageSetting>
+                                            <PageSetting>
+                                                <Key>column-1-customizable</Key>
+                                                <Value>false</Value>
+                                            </PageSetting>
+                                            <PageSetting>
+                                                <Key>column-1</Key>
+                                                <Value>nonblocking_at_portlet1</Value>
+                                            </PageSetting>
+                                        </PageSettings>
+                                        <Permissions>
+                                            <Permission role="DEMO_ROLE1">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                </Actions>
+                                            </Permission>
+                                            <Permission role="Owner">
+                                                <Actions>
+                                                    <Action>VIEW</Action>
+                                                    <Action>ADD_LAYOUT</Action>
+                                                    <Action>CONFIGURE_PORTLETS</Action>
+                                                    <Action>CUSTOMIZE</Action>
+                                                    <Action>DELETE</Action>
+                                                    <Action>PERMISSIONS</Action>
+                                                    <Action>UPDATE</Action>
+                                                </Actions>
+                                            </Permission>
+                                        </Permissions>
+                                    </Page>
+                                </SubPages>
+                            </Page>
+                        </Pages>
+                    </PublicPages>
+                    <PrivatePages>
+                        <DefaultThemeId>classic</DefaultThemeId>
+                        <DefaultColorSchemeId>01</DefaultColorSchemeId>
+                    </PrivatePages>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

@@ -1,0 +1,201 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<LiferayConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xmlns="http://nonblocking.at/cliwix"
+               modelVersion="1.1"
+               xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd">
+    <Companies policy="UPDATE_INSERT">
+        <Company webID="CliwixDemo7">
+            <CompanyConfiguration>
+                <VirtualHost>cliwixdemo7.nonblocking.at</VirtualHost>
+                <MailDomain>nonblocking.at</MailDomain>
+                <HomeURL>/web/demo</HomeURL>
+                <AccountName>CliwixDemo7</AccountName>
+                <Active>true</Active>
+                <DefaultLocale>de_DE</DefaultLocale>
+                <DefaultTimezone>Europe/Vienna</DefaultTimezone>
+                <DefaultGreeting>Herzlich Willkommen!</DefaultGreeting>
+            </CompanyConfiguration>
+            <PortalPreferences>
+                <Preference>
+                    <Name>default.landing.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>default.logout.page.path</Name>
+                    <Value>/web/demo</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auto.login</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.site.logo</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>terms.of.use.required</Name>
+                    <Value>false</Value>
+                </Preference>
+                <Preference>
+                    <Name>company.security.auth.type</Name>
+                    <Value>screenName</Value>
+                </Preference>
+            </PortalPreferences>
+            <Users policy="ENFORCE">
+                <User screenName="demouser">
+                    <EmailAddress>demoUser@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>User</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Gender>F</Gender>
+                    <Language>de_DE</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo User!</Greeting>
+                </User>
+                <User screenName="demoadmin">
+                    <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+                    <FirstName>Demo</FirstName>
+                    <LastName>Administrator</LastName>
+                    <Password encrypted="false">test</Password>
+                    <Gender>F</Gender>
+                    <Language>de</Language>
+                    <Timezone>Europe/Vienna</Timezone>
+                    <Greeting>Hallo Demo Admin!</Greeting>
+                </User>
+            </Users>
+            <UserGroups>
+                <UserGroup name="DEMO_USER_GROUP1">
+                    <MemberUsers>
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </UserGroup>
+                <UserGroup name="ADMIN_GROUP">
+                    <MemberUsers>
+                        <User screenName="demoadmin" />
+                    </MemberUsers>
+                </UserGroup>
+            </UserGroups>
+            <Roles>
+                <Role name="Power User">
+                    <Descriptions>
+                        <Description locale="en_US">Power Users have their own personal site.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Organization Owner">
+                    <Type>ORGANIZATION</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Organization Owners are super users of their organization and can assign organization roles to users.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Member">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">All users who belong to a site have this role within that site.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Owner">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Site Owners are super users of their site and can assign site roles to users.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="DEMO_ROLE2" />
+                <Role name="DEMO_ROLE1">
+                    <Titles>
+                        <Title locale="en_US">Demo Role 1</Title>
+                        <Title locale="de_DE">Demo Rolle 1</Title>
+                    </Titles>
+                </Role>
+                <Role name="Organization User">
+                    <Type>ORGANIZATION</Type>
+                    <Descriptions>
+                        <Description locale="en_US">All users who belong to an organization have this role within that organization.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Administrator">
+                    <Descriptions>
+                        <Description locale="en_US">Administrators are super users who can do anything.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="User">
+                    <Descriptions>
+                        <Description locale="en_US">Authenticated users should be assigned this role.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Site Administrator">
+                    <Type>SITE</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Site Administrators are super users of their site but cannot make other users into Site Administrators.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Guest">
+                    <Descriptions>
+                        <Description locale="en_US">Unauthenticated users always have this role.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Organization Administrator">
+                    <Type>ORGANIZATION</Type>
+                    <Descriptions>
+                        <Description locale="en_US">Organization Administrators are super users of their organization but cannot make other users into Organization Administrators.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="Owner">
+                    <Descriptions>
+                        <Description locale="en_US">This is an implied role with respect to the objects users create.</Description>
+                    </Descriptions>
+                </Role>
+                <Role name="DEMO_ROLE3" />
+            </Roles>
+            <Organizations>
+                <Organization name="ORG1">
+                    <Type>regular-organization</Type>
+                    <SubOrganizations>
+                        <Organization name="ORG2">
+                            <Type>regular-organization</Type>
+                            <CountryCode>DE</CountryCode>
+                        </Organization>
+                    </SubOrganizations>
+                </Organization>
+            </Organizations>
+            <RegularRoleAssignments>
+                <Role name="Administrator">
+                    <MemberUserGroups>
+                        <UserGroup name="ADMIN_GROUP" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE1">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="DEMO_ROLE2">
+                    <MemberOrganizations>
+                        <Organization name="ORG1" />
+                    </MemberOrganizations>
+                </Role>
+                <Role name="DEMO_ROLE3">
+                    <MemberUserGroups>
+                        <UserGroup name="DEMO_USER_GROUP1" />
+                    </MemberUserGroups>
+                </Role>
+                <Role name="Power User">
+                    <MemberUsers>
+                        <User screenName="demouser" />
+                    </MemberUsers>
+                </Role>
+            </RegularRoleAssignments>
+            <Sites>
+                <Site name="Guest">
+                    <SiteConfiguration>
+                        <FriendlyURL>/guest</FriendlyURL>
+                        <Active>true</Active>
+                        <MembershipType>OPEN</MembershipType>
+                    </SiteConfiguration>
+                    <PublicPages>
+                        <DefaultThemeId>nonblocking_at_theme1</DefaultThemeId>
+                    </PublicPages>
+                </Site>
+            </Sites>
+        </Company>
+    </Companies>
+</LiferayConfig>

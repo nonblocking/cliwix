@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<Users  xmlns="http://nonblocking.at/cliwix"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://nonblocking.at/cliwix ../../../../cliwix-model/src/main/resources/cliwix_1_1.xsd">
+    <User screenName="demoadmin">
+        <EmailAddress>demoAdmin@nonblocking.at</EmailAddress>
+        <FirstName>Demo</FirstName>
+        <LastName>Administrator</LastName>
+        <Password encrypted="false">test</Password>
+        <Language>de_DE</Language>
+        <Timezone>Europe/Vienna</Timezone>
+        <Greeting>Hallo Demo Admin!</Greeting>
+    </User>
+    <User screenName="demouser">
+        <EmailAddress>demoUser@nonblocking.at</EmailAddress>
+        <FirstName>Demo</FirstName>
+        <LastName>User</LastName>
+        <Password encrypted="false">test</Password>
+        <Language>de_DE</Language>
+        <Timezone>Europe/Vienna</Timezone>
+        <Greeting>Hallo Demo User!</Greeting>
+    </User>
+    <User screenName="demouser2">
+        <EmailAddress>demoUser2@nonblocking.at</EmailAddress>
+        <FirstName>Demo2</FirstName>
+        <LastName>User</LastName>
+        <Password encrypted="false">test</Password>
+        <Language>en_GB</Language>
+        <Timezone>Europe/Vienna</Timezone>
+        <Greeting>Welcome Demo User 2!</Greeting>
+    </User>
+</Users>

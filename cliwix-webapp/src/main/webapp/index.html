@@ -1,0 +1,106 @@
+<!DOCTYPE html SYSTEM "http://www.thymeleaf.org/dtd/xhtml1-strict-thymeleaf-spring4-3.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>Cliwix WebClient</title>
+
+        <link rel="icon" href="img/favicon.ico" type="image/x-icon" />
+        <link rel="shortcut icon" href="img/favicon.ico" type="image/x-icon" />
+
+        <!-- fileblock:css vendor_css -->
+        <link href="css/vendor.css" rel="stylesheet" />
+        <!-- endfileblock -->
+
+        <!-- fileblock:css app_css -->
+        <link href="css/app.css" rel="stylesheet" />
+        <!-- endfileblock -->
+
+        <!--[if lt IE 10]>
+        <script type="text/javascript">
+            document.location = 'unsupported_browser';
+        </script>
+        <![endif]-->
+
+    </head>
+    <body ng-controller="MainController">
+        <div class="container">
+            <div id="header">
+                <div>
+                    <a href="http://www.cliwix.com" target="_blank"><img class="logo" src="img/cliwix_logo.svg" /></a>
+                    <div id="subtitle">Configure Liferay<br/>with XML</div>
+                </div>
+                <div id="header-right">
+                    <div id="header-downloads" ng-show="!isActive('/login')">
+                        <a href="services/downloads/cliClient" target="_blank" class="icon-download">{{ 'download.cli.client' | translate }}</a>
+                        <a href="services/downloads/cliwixAPI" target="_blank" class="icon-download">{{ 'download.api' | translate }}</a>
+                    </div>
+                    <div id="header-user">
+                        <p>{{ cliwixVersion }}</p>
+                        <p><strong>{{username}}</strong><span ng-show="username != 'anonymous'">&nbsp;(<a href="#" ng-click="logout()">{{ 'logout' | translate }}</a>)</span></p>
+                    </div>
+                 </div>
+            </div>
+
+            <div class="error-message alert alert-dismissible" ng-class="alertClass()" ng-show="errorMessage != null">
+                <button type="button" class="close" ng-click="clearMessages()"><span aria-hidden="true">&#215;</span><span class="sr-only">{{ 'close' | translate }}</span></button>
+                {{errorMessage | limitTo:160 }}
+            </div>
+
+            <ul class="main-menu nav nav-tabs" role="tablist" ng-show="showMenu()">
+                <li ng-class="{ active:isActive('/export') }"><a href="#/export">{{ 'export' | translate }}</a></li>
+                <li ng-class="{ active:isActive('/import') }"><a href="#/import">{{ 'import' | translate }}</a></li>
+                <li ng-class="{ active:isActive('/settings') }"><a href="#/settings">{{ 'settings' | translate }}</a></li>
+                <li ng-class="{ active:isActive('/help') }"><a href="#/help">{{ 'help' | translate }}</a></li>
+            </ul>
+
+            <div class="main-content" ng-show="liferayReady" ng-class="{ topborder:isActive('/login') }">
+                <div ng-view=""> </div>
+            </div>
+        </div>
+
+        <footer id="footer">
+            <div class="container">
+                <div id="licence">
+                    Cliwix 2 is released under the <a href="http://www.gnu.org/licenses/agpl-3.0.html" target="_blank">GNU Affero GPL v3</a> licence
+                </div>
+                <div id="copyright">
+                    &copy; <a href="http://www.nonblocking.at" target="_blank">nonblocking.at gmbh</a> {{copyrightYear}}
+                </div>
+            </div>
+        </footer>
+
+
+        <script type="text/javascript" th:inline="javascript">
+            var appConfig = {
+                "liferayFound": /*[[${liferayFound}]]*/ true,
+                "liferaySupported": /*[[${liferaySupported}]]*/ true,
+                "liferayReady": /*[[${liferayReady}]]*/ true,
+                "user": /*[[${user}]]*/ "anonymous",
+                "version": /*[[${version}]]*/ "1.1.0-201510061957",
+                "standalone": /*[[${standalone}]]*/ true
+            };
+
+            document.addEventListener("DOMContentLoaded", function(event) {
+                startApp();
+            });
+
+            function startApp() {
+                var app = angular.module('cliwix');
+                app.constant('appConfig', appConfig);
+                angular.bootstrap(document.body, ['cliwix']);
+            }
+        </script>
+
+        <!-- fileblock:js vendor_js -->
+        <script type="text/javascript" charset="UTF-8"  src="js/vendor.js"></script>
+        <!-- endfileblock -->
+
+        <!-- fileblock:js app_js -->
+        <script type="text/javascript" charset="UTF-8"  src="js/app.js"></script>
+        <!-- endfileblock -->
+
+        <script type="application/javascript" src="//localhost:35729/livereload.js" th:if="${standalone}"></script>
+    </body>
+</html>
