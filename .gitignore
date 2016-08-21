@@ -3,6 +3,7 @@ target
 
 .idea
 *.iml
+*.DS_Store
 
 cliwix-cli-client/dependency-reduced-pom.xml
 
