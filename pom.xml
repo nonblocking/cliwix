@@ -100,7 +100,8 @@
                 <configuration>
                     <baseVersion>${cliwix.version}</baseVersion>
                     <scmType>GIT</scmType>
-                    <scmPassword>${git.passphrase}</scmPassword>
+                    <scmUser>${git.user}</scmUser>
+                    <scmPassword>${git.password}</scmPassword>
                     <deferPomCommit>true</deferPomCommit>
                 </configuration>
             </plugin>
