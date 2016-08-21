@@ -5,18 +5,18 @@
     <parent>
         <groupId>at.nonblocking</groupId>
         <artifactId>cliwix</artifactId>
-        <version>2.0.4-201607131213</version>
+        <version>2.0.4-201608211649</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cliwix-core</artifactId>
-    <version>2.0.4-201607131213</version>
+    <version>2.0.4-201607161541</version>
     <name>Cliwix Core</name>
 
     <dependencies>
         <dependency>
             <groupId>at.nonblocking</groupId>
             <artifactId>cliwix-model</artifactId>
-            <version>2.0.4-201607131213</version>
+            <version>2.0.4-201607161541</version>
         </dependency>
         <dependency>
             <groupId>com.liferay.portal</groupId>
