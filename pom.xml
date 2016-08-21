@@ -51,6 +51,9 @@
         <mockito.version>1.9.5</mockito.version>
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <git.user>externally_set</git.user>
+        <git.password>externally_set</git.password>
     </properties>
 
     <modules>
