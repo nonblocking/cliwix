@@ -143,6 +143,7 @@ public class CliwixXmlSerializerTest {
         assertTrue(xml.contains("xmlns=\"http://nonblocking.at/cliwix\""));
         assertTrue(xml.contains("xsi:schemaLocation=\"http://nonblocking.at/cliwix cliwix_1_1.xsd\""));
         assertTrue(xml.contains("xmlns:xi=\"http://www.w3.org/2001/XInclude\""));
+        assertTrue(xml.contains("<Content locale=\"en_GB\"><![CDATA[<xml><content>Hi döre</content>]]></Content>"));
     }
 
     @Test
