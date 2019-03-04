@@ -60,11 +60,13 @@ class StartupListener extends ServletContextListener {
       properties.load(propertyFileIS)
     }
 
-    val configFile =
-      if (properties.getProperty("cliwix.enableDebugLog") != null) "logback_debug.xml"
-      else "logback_prod.xml"
+    if (System.getProperty("logback.configurationFile") == null) {
+      val configFile =
+        if (properties.getProperty("cliwix.enableDebugLog") != null) "logback_debug.xml"
+        else "logback_prod.xml"
 
-    System.setProperty("logback.configurationFile", configFile)
+      System.setProperty("logback.configurationFile", configFile)
+    }
   }
 
   def copyCliwixConfigurationOverrideTemplateIfNotExists() = {
