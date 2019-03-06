@@ -5,18 +5,18 @@
     <parent>
         <groupId>at.nonblocking</groupId>
         <artifactId>cliwix</artifactId>
-        <version>2.0.4-201608211751</version>
+        <version>2.0.5-201903061316</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cliwix-test-integration</artifactId>
-    <version>2.0.4-201608211751</version>
+    <version>2.0.5-201608211758</version>
     <name>Cliwix Integration Tests</name>
 
     <dependencies>
         <dependency>
             <groupId>at.nonblocking</groupId>
             <artifactId>cliwix-core</artifactId>
-            <version>2.0.4-201608211751</version>
+            <version>2.0.5-201608211758</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.liferay.portal</groupId>
@@ -27,13 +27,13 @@
         <dependency>
             <groupId>at.nonblocking</groupId>
             <artifactId>cliwix-core-handlers-6-1</artifactId>
-            <version>2.0.4-201608211751</version>
+            <version>2.0.5-201608211758</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>at.nonblocking</groupId>
             <artifactId>cliwix-core-handlers-6-2</artifactId>
-            <version>2.0.4-201608211751</version>
+            <version>2.0.5-201608211758</version>
             <scope>runtime</scope>
         </dependency>
 
