@@ -212,9 +212,10 @@
                             <goal>exec</goal>
                         </goals>
                         <configuration>
-                            <executable>grunt</executable>
+                            <executable>npm</executable>
                             <arguments>
-                                <argument>dist</argument>
+                                <argument>run</argument>
+                                <argument>build</argument>
                             </arguments>
                         </configuration>
                     </execution>
