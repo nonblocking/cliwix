@@ -25,7 +25,7 @@
     </licenses>
 
     <properties>
-        <cliwix.version>2.0.5</cliwix.version>
+        <cliwix.version>2.0.6</cliwix.version>
 
         <java.minimum.version>1.7</java.minimum.version>
         <liferay.minimum.version>6.1.0</liferay.minimum.version>
@@ -52,8 +52,8 @@
 
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <git.user>externally_set</git.user>
-        <git.password>externally_set</git.password>
+        <scmUser>externally_set</scmUser>
+        <scmPassword>externally_set</scmPassword>
     </properties>
 
     <modules>
@@ -103,8 +103,8 @@
                 <configuration>
                     <baseVersion>${cliwix.version}</baseVersion>
                     <scmType>GIT</scmType>
-                    <scmUser>${git.user}</scmUser>
-                    <scmPassword>${git.password}</scmPassword>
+                    <scmUser>${scmUser}</scmUser>
+                    <scmPassword>${scmPassword}</scmPassword>
                     <deferPomCommit>true</deferPomCommit>
                 </configuration>
             </plugin>
