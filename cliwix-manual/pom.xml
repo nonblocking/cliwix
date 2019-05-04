@@ -5,18 +5,18 @@
     <parent>
         <artifactId>cliwix</artifactId>
         <groupId>at.nonblocking</groupId>
-        <version>2.0.5-201903061316</version>
+        <version>2.0.6-201903290853</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <artifactId>cliwix-manual</artifactId>
-    <version>2.0.5-201608211758</version>
+    <version>2.0.6-201903061358</version>
     <name>Cliwix Manual</name>
 
     <dependencies>
         <dependency>
             <groupId>at.nonblocking</groupId>
             <artifactId>cliwix-model</artifactId>
-            <version>2.0.5-201805071534</version>
+            <version>2.0.6-201903061358</version>
         </dependency>
 
         <dependency>
